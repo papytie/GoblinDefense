@@ -6,14 +6,16 @@ using Random = UnityEngine.Random;
 [Serializable]
 public struct FGroup
 {
-    [SerializeField] Entity typeOfEntity;
-    [SerializeField] int numberOfEntity;
-    [SerializeField] float spawnRate;
-    [SerializeField] bool isRandomWave;
     public Entity TypeOfEntity => typeOfEntity;
     public int NumberOfEntity => numberOfEntity;
     public float SpawnRate => spawnRate;
     public bool IsRandomWave => isRandomWave;
+
+    [Header("Settings")]
+    [SerializeField] Entity typeOfEntity;
+    [SerializeField] int numberOfEntity;
+    [SerializeField] float spawnRate;
+    [SerializeField] bool isRandomWave;
 }
 
 [Serializable]
