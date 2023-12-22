@@ -11,7 +11,7 @@ public struct FGroup
     public float SpawnRate => spawnRate;
     public bool IsRandomWave => isRandomWave;
 
-    [Header("Settings")]
+    [Header("Group Settings")]
     [SerializeField] Entity typeOfEntity;
     [SerializeField] int numberOfEntity;
     [SerializeField] float spawnRate;
@@ -21,9 +21,11 @@ public struct FGroup
 [Serializable]
 public struct FWave
 {
+    public List<FGroup> AllGroupsInWave => allGroupsInWave;
+
+    [Header("Wave Settings")]
     [SerializeField] List<FGroup> allGroupsInWave;
     [SerializeField] float timeBetweenGroups;
-    public List<FGroup> AllGroupsInWave => allGroupsInWave;
 }
 
 public class Spawner : MonoBehaviour

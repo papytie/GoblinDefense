@@ -16,13 +16,6 @@ public class Tower : MonoBehaviour
     }
     public Entity MainTarget => mainTarget;
 
-    // The tower attack behaviour use a sequence of events : ( below)
-    event Action OnEnemiesInRange = null;
-    event Action OnTargetSelection = null;
-    event Action OnTargetAcquired = null;
-    event Action OnProjectileSpawn = null;
-    event Action OnTargetExpired = null;
-
     [Header("References")]
     [SerializeField] Projectiles projToSpawn = null;
     [SerializeField] Entity mainTarget = null;
@@ -35,6 +28,13 @@ public class Tower : MonoBehaviour
     [SerializeField] float animationDuration = 1.66f; // set animation legth to proper synchro with fire rate
     [SerializeField] float detectionRate = 1f; // time between each detection loop
     [SerializeField] bool isAttacking = false; // switch to prevent multi attacking on a target
+
+    // The tower attack behaviour use a sequence of events : ( below)
+    event Action OnEnemiesInRange = null;
+    event Action OnTargetSelection = null;
+    event Action OnTargetAcquired = null;
+    event Action OnProjectileSpawn = null;
+    event Action OnTargetExpired = null;
 
     void Start()
     {

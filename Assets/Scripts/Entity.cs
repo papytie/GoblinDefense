@@ -7,6 +7,9 @@ using Random = UnityEngine.Random;
 
 public class Entity : MonoBehaviour
 {
+    public Vector3 AimingPoint { get => aimingPoint; set { aimingPoint = value;}}
+    public bool IsDead { get => isDead; set { isDead = value;}} 
+    public bool CanMove { get => canMove; set { canMove = value;}} 
 
     [Header("References")]
     [SerializeField] PathManager pathManager = null;
@@ -26,12 +29,10 @@ public class Entity : MonoBehaviour
     Vector3 aimingPoint = Vector3.zero;
     bool isDead = false;
     int currentIndex = 1;
-    public Vector3 AimingPoint { get => aimingPoint; set { aimingPoint = value;}}
-    public bool IsDead { get => isDead; set { isDead = value;}} 
-    public bool CanMove { get => canMove; set { canMove = value;}} 
 
-    public event Action OnDamageTaken = null;
-    public event Action OnDeath = null;
+    // Event used for Entity reactions behaviours
+    event Action OnDamageTaken = null;
+    event Action OnDeath = null;
 
     void Start()
     {
