@@ -24,29 +24,29 @@ public struct FWave
     public List<FGroup> AllGroupsInWave => allGroupsInWave;
 
     [Header("Wave Settings")]
-    [SerializeField] List<FGroup> allGroupsInWave;
     [SerializeField] float timeBetweenGroups;
+    [SerializeField] List<FGroup> allGroupsInWave;
 }
 
 public class Spawner : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField] PathManager pathManager = null;
-    //[SerializeField] Entity toSpawn = null;
+
+    [Header("Spawner Settings")]
     [SerializeField] float currentTime = 0;
+    [SerializeField] float maxTime = 5;
+    //[SerializeField] Entity toSpawn = null;
     //[SerializeField] float currentTimeWave = 0;
     //[SerializeField] float nextWave = 30;
-    [SerializeField] float maxTime = 5;
     //[SerializeField] float minSpawnTime = 1;
     //[SerializeField] float maxSpawnTime = 5;
-    
-    //[SerializeField] List<Entity> allEntities = new();
-    
-    [SerializeField] List<FWave> wavesToSpawn = new();
+        
     [SerializeField] int currentWaveIndex = 0;
     [SerializeField] int currentGroupIndex = 0;
     [SerializeField] bool allWavesAreSpawned = false;
 
-    //public List<Entity> AllEntities => allEntities;
+    [SerializeField] List<FWave> wavesToSpawn = new();
 
     void Start()
     {
