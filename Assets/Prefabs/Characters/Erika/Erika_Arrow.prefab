@@ -353,7 +353,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f74aacb7eac8cec4e834a8972f3336db, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -5105731605820295786}
+      addedObject: {fileID: 4894271939449819038}
   m_SourcePrefab: {fileID: 100100000, guid: f74aacb7eac8cec4e834a8972f3336db, type: 3}
 --- !u!4 &6159396793656154600 stripped
 Transform:
@@ -365,7 +365,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: f74aacb7eac8cec4e834a8972f3336db, type: 3}
   m_PrefabInstance: {fileID: 5976324819928710659}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &-5105731605820295786
+--- !u!114 &4894271939449819038
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -380,7 +380,7 @@ MonoBehaviour:
   target: {fileID: 0}
   towerRef: {fileID: 0}
   moveSpeed: 20
-  impactDist: 1
+  impactDist: 2
   damageValue: 1
 --- !u!1001 &8763001204405508500
 PrefabInstance:

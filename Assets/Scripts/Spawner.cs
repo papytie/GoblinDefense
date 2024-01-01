@@ -22,104 +22,106 @@ public struct FGroup
 public struct FWave
 {
     public List<FGroup> AllGroupsInWave => allGroupsInWave;
+    public float TimeBetweenGroups => timeBetweenGroups;
 
     [Header("Wave Settings")]
     [SerializeField] float timeBetweenGroups;
     [SerializeField] List<FGroup> allGroupsInWave;
 }
 
-public class Spawner : MonoBehaviour
+public class Spawner : MonoBehaviour //TODO : Redo all the logic of spawn, broken at this time
 {
     [Header("References")]
     [SerializeField] PathManager pathManager = null;
 
     [Header("Spawner Settings")]
-    [SerializeField] float currentTime = 0;
-    [SerializeField] float maxTime = 5;
-    //[SerializeField] Entity toSpawn = null;
-    //[SerializeField] float currentTimeWave = 0;
-    //[SerializeField] float nextWave = 30;
-    //[SerializeField] float minSpawnTime = 1;
-    //[SerializeField] float maxSpawnTime = 5;
+    [SerializeField] float timeBetweenWave = 30;
+    [SerializeField] float startTime = 5;
         
     [SerializeField] int currentWaveIndex = 0;
     [SerializeField] int currentGroupIndex = 0;
+    [SerializeField] int entityCount = 0;
+    [SerializeField] FGroup currentGroup;
+    [SerializeField] FWave currentWave;
+    
     [SerializeField] bool allWavesAreSpawned = false;
+    [SerializeField] bool waveIsOver = false;
+    [SerializeField] bool groupIsOver = false;
 
     [SerializeField] List<FWave> wavesToSpawn = new();
 
+    event Action OnWaveBegin = null;
+    event Action OnWaveEnd = null;
+
     void Start()
     {
-        pathManager = FindObjectOfType<PathManager>();
-        
+        InitSpawner();
     }
 
     void Update()
     {
-        WaveTimer(maxTime);
+
     }
 
-    void ManageWaves(FWave _waveToSpawn)
+    void InitSpawner()
     {
-        if (allWavesAreSpawned == true) return;
-        if (wavesToSpawn.Count > 0) 
-        { 
-            foreach(FGroup _group in _waveToSpawn.AllGroupsInWave) 
-            {
-                SpawnGroup(_group);
-                //Debug.Log("group check foreach");
-            }
+        pathManager = FindObjectOfType<PathManager>();
+        Invoke(nameof(WaveManagement), startTime);
+
+    }
+
+    void WaveManagement()
+    {
+        if (waveIsOver) // Select and launch next wave if switch true
+        {
             currentWaveIndex++;
-            if (currentWaveIndex == wavesToSpawn.Count)
+            waveIsOver = false;
+            if (currentWaveIndex > wavesToSpawn.Count -1)
+            {
                 allWavesAreSpawned = true;
+                return;
+            }
         }
+        currentWave = wavesToSpawn[currentWaveIndex];
+        GroupManagement();
     }
 
-    void SpawnGroup(FGroup _groupToSpawn) // POURQUOI CA MARCHE ? La boucle for se joue tant que sa condition n'est pas remplie
+    void GroupManagement()
     {
-        int _size = _groupToSpawn.NumberOfEntity;
-        for (int i = 0; i < _size; i++)
+        if (groupIsOver)
         {
-            SpawnEntity(_groupToSpawn.TypeOfEntity);
-            //Debug.Log("current for [i] value is : " + i);
+            currentGroupIndex++;
+            groupIsOver = false;
+            if (currentGroupIndex > currentWave.AllGroupsInWave.Count -1)
+            {
+                currentGroupIndex = 0;
+                waveIsOver = true;
+                Invoke(nameof(WaveManagement), timeBetweenWave);
+                return;
+            }
         }
-        //Debug.Log("truc");
-
+        currentGroup = currentWave.AllGroupsInWave[currentGroupIndex];
+        EntityManagement();
     }
 
-    void WaveTimer(float _maxTime)
+    void EntityManagement()
     {
-        currentTime += Time.deltaTime;
-        if(currentTime >= _maxTime) 
+        entityCount++;
+        if(entityCount > currentGroup.NumberOfEntity)
         {
-            currentTime = 0;
-            ManageWaves(wavesToSpawn[0]);
+            groupIsOver = true;
+            entityCount = 0;
+            Invoke(nameof(GroupManagement), currentWave.TimeBetweenGroups);
+            return;
         }
+        SpawnEntity(currentGroup.TypeOfEntity);
+        Invoke(nameof(EntityManagement), currentGroup.SpawnRate);
     }
 
     void SpawnEntity(Entity _toSpawn)
     {
-        Entity _entity = Instantiate(_toSpawn, pathManager.Path[0].transform.position, Quaternion.identity);
+        Entity _entity = Instantiate(_toSpawn, pathManager.Path[0].transform.position, pathManager.Path[0].transform.rotation);
         _entity.SetEntityRef(pathManager, this);
-        //allEntities.Add(_entity);
     }
 
-    public void RemoveEntityFromList(Entity _entity)
-    {
-        //allEntities.Remove(_entity);
-    }
-
-    /*void WaveSpawner()
-    {
-        if (wavesToSpawn.Count == 0)
-        {
-            Debug.Log("No wave to spawn");
-            return;
-        }
-        
-        currentWave = wavesToSpawn[currentWaveIndex]; // Set currentWave
-        
-        currentGroup = currentWave.AllGroupsInWave[currentGroupIndex]; // Set currentGroup
-       
-    }*/
 }
