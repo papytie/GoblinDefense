@@ -29,7 +29,6 @@ public struct FGroup //Contains variables & options for each groups of entities 
     [SerializeField] bool isRandomWave;
 }
 
-
 public class Spawner : MonoBehaviour 
 {
     [Header("References")]

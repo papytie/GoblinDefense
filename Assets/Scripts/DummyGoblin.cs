@@ -7,15 +7,19 @@ using Random = UnityEngine.Random;
 
 public class DummyGoblin : MonoBehaviour
 {
-    public event Action OnAnimationPlayed = null;
-    public event Action OnTimerEnd = null;
-
-    [SerializeField] Animator animator = null;
-
-    [SerializeField] float currentTime = 0;
+    [Header("Dummy Goblin Settings")]
     [SerializeField] float maxTime = 1;
-
+    [SerializeField] float minRandTime = 2;
+    [SerializeField] float maxRandTime = 4;
     [SerializeField] List<string> paramsList = new();
+
+    Animator animator = null;
+    
+    float currentTime = 0;
+
+    //event Action OnAnimationPlayed = null; //not used
+    event Action OnTimerEnd = null;
+
     void Start()
     {
         InitDummyGoblin();
@@ -30,11 +34,11 @@ public class DummyGoblin : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         OnTimerEnd += ChangeMaxTime;
-    }
+    } //set refs and event
     
     void ChangeMaxTime()
     {
-        maxTime = Random.Range(2f, 4f);
+        maxTime = Random.Range(minRandTime, maxRandTime);
     }
 
     void RandomTimer()
@@ -46,7 +50,7 @@ public class DummyGoblin : MonoBehaviour
             ChooseRandomAnimInList();
             OnTimerEnd?.Invoke();
         }
-    }
+    } //Timer with changing random max value
 
     void ChooseRandomAnimInList()
     {

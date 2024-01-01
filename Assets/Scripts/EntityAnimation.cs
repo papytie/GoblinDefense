@@ -4,17 +4,11 @@ using UnityEngine;
 
 public class EntityAnimation : MonoBehaviour
 {
-
-    [SerializeField] Animator animator = null;
+    Animator animator = null;
 
     void Start()
     {
         InitEntityAnimation();
-    }
-
-    void Update()
-    {
-        
     }
 
     void InitEntityAnimation()

@@ -153,7 +153,6 @@ public class Tower : MonoBehaviour
         CancelInvoke(nameof(EntityDetection));
     }
 
-
     // -------- DEBUG ---------
     private void OnDrawGizmos()
     {

@@ -19,7 +19,7 @@ public class PathManager : MonoBehaviour
         CreatePath();
     }
 
-    void CreatePath()
+    void CreatePath() //TODO: create a path with only transforms instead of gameObjects with script
     {
         List<Pathpoint> _allPoints = FindObjectsByType<Pathpoint>(FindObjectsSortMode.None).ToList();
         path = _allPoints.OrderBy(_point => _point.name).ToList();
