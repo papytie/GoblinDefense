@@ -4,22 +4,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 [Serializable]
-public struct FGroup
-{
-    public Entity TypeOfEntity => typeOfEntity;
-    public int NumberOfEntity => numberOfEntity;
-    public float SpawnRate => spawnRate;
-    public bool IsRandomWave => isRandomWave;
-
-    [Header("Group Settings")]
-    [SerializeField] Entity typeOfEntity;
-    [SerializeField] int numberOfEntity;
-    [SerializeField] float spawnRate;
-    [SerializeField] bool isRandomWave;
-}
-
-[Serializable]
-public struct FWave
+public struct FWave //Contains all variables & options for a wave
 {
     public List<FGroup> AllGroupsInWave => allGroupsInWave;
     public float TimeBetweenGroups => timeBetweenGroups;
@@ -29,99 +14,109 @@ public struct FWave
     [SerializeField] List<FGroup> allGroupsInWave;
 }
 
-public class Spawner : MonoBehaviour //TODO : Redo all the logic of spawn, broken at this time
+[Serializable]
+public struct FGroup //Contains variables & options for each groups of entities in wave
+{
+    public Entity TypeOfEntity => typeOfEntity;
+    public int NumberOfEntity => numberOfEntity;
+    public float SpawnRate => spawnRate;
+    //public bool IsRandomWave => isRandomWave; //TODO: create an option to generate a random wave with max and min values
+
+    [Header("Group Settings")]
+    [SerializeField] Entity typeOfEntity;
+    [SerializeField] int numberOfEntity;
+    [SerializeField] float spawnRate;
+    [SerializeField] bool isRandomWave;
+}
+
+
+public class Spawner : MonoBehaviour 
 {
     [Header("References")]
     [SerializeField] PathManager pathManager = null;
 
     [Header("Spawner Settings")]
-    [SerializeField] float timeBetweenWave = 30;
+    [SerializeField] float timeBetweenWave = 30; //TODO: create an option to begin next wave only when all entities are dead
     [SerializeField] float startTime = 5;
         
-    [SerializeField] int currentWaveIndex = 0;
-    [SerializeField] int currentGroupIndex = 0;
-    [SerializeField] int entityCount = 0;
-    [SerializeField] FGroup currentGroup;
-    [SerializeField] FWave currentWave;
-    
-    [SerializeField] bool allWavesAreSpawned = false;
-    [SerializeField] bool waveIsOver = false;
-    [SerializeField] bool groupIsOver = false;
-
+    [Header("Waves Settings")]
     [SerializeField] List<FWave> wavesToSpawn = new();
 
-    event Action OnWaveBegin = null;
-    event Action OnWaveEnd = null;
+    FGroup currentGroup;
+    FWave currentWave;
+    int currentWaveIndex = 0;
+    int currentGroupIndex = 0;
+    int entityCount = 0;
+    
+    bool allWavesAreSpawned = false;
+    bool waveIsOver = false;
+    bool groupIsOver = false;
+
+    event Action OnNextWave = null;
+    event Action OnNextGroup = null;
+    event Action OnEntitySpawn = null;
 
     void Start()
     {
         InitSpawner();
-    }
-
-    void Update()
-    {
-
+        Invoke(nameof(WaveManagement), startTime);
     }
 
     void InitSpawner()
     {
         pathManager = FindObjectOfType<PathManager>();
-        Invoke(nameof(WaveManagement), startTime);
 
-    }
+        OnNextWave += () => Invoke(nameof(WaveManagement), timeBetweenWave);
+        OnNextGroup += () => Invoke(nameof(GroupManagement), currentWave.TimeBetweenGroups);
+        OnEntitySpawn += () => Invoke(nameof(EntityManagement), currentGroup.SpawnRate);
+
+    } //Initialise ref & events
 
     void WaveManagement()
     {
-        if (waveIsOver) // Select and launch next wave if switch true
+        if (currentWaveIndex > wavesToSpawn.Count -1)
         {
-            currentWaveIndex++;
-            waveIsOver = false;
-            if (currentWaveIndex > wavesToSpawn.Count -1)
-            {
-                allWavesAreSpawned = true;
-                return;
-            }
+            allWavesAreSpawned = true;
+            return;
         }
+
         currentWave = wavesToSpawn[currentWaveIndex];
         GroupManagement();
-    }
+    } //Check for waves to spawn, set currentWave ref & launch sequence || Stop sequence
 
     void GroupManagement()
     {
-        if (groupIsOver)
+        if (currentGroupIndex > currentWave.AllGroupsInWave.Count -1)
         {
-            currentGroupIndex++;
-            groupIsOver = false;
-            if (currentGroupIndex > currentWave.AllGroupsInWave.Count -1)
-            {
-                currentGroupIndex = 0;
-                waveIsOver = true;
-                Invoke(nameof(WaveManagement), timeBetweenWave);
-                return;
-            }
+            currentWaveIndex++;
+            currentGroupIndex = 0;
+            OnNextWave?.Invoke();
+            return;
         }
+
         currentGroup = currentWave.AllGroupsInWave[currentGroupIndex];
         EntityManagement();
-    }
+    } //Check for Group to spawn in wave, set currentGroup ref & continue sequence || Go to next Wave
 
     void EntityManagement()
     {
-        entityCount++;
-        if(entityCount > currentGroup.NumberOfEntity)
+        if(entityCount >= currentGroup.NumberOfEntity)
         {
-            groupIsOver = true;
+            currentGroupIndex++;
             entityCount = 0;
-            Invoke(nameof(GroupManagement), currentWave.TimeBetweenGroups);
+            OnNextGroup?.Invoke();
             return;
-        }
+        } 
+
         SpawnEntity(currentGroup.TypeOfEntity);
-        Invoke(nameof(EntityManagement), currentGroup.SpawnRate);
-    }
+        entityCount++;
+        OnEntitySpawn?.Invoke();
+    } //Check if all entities have spawned and call SpawnEntity || Go to next Group
 
     void SpawnEntity(Entity _toSpawn)
     {
         Entity _entity = Instantiate(_toSpawn, pathManager.Path[0].transform.position, pathManager.Path[0].transform.rotation);
         _entity.SetEntityRef(pathManager, this);
-    }
+    } //Spawn target entity and give it pathManager and spawner ref
 
 }

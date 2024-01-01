@@ -6708,15 +6708,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1751984897308114306, guid: 8390d1253263fae46affc9dd222efbd4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 32.87
+      value: 33.194
       objectReference: {fileID: 0}
     - target: {fileID: 1751984897308114306, guid: 8390d1253263fae46affc9dd222efbd4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.69
+      value: 3.493
       objectReference: {fileID: 0}
     - target: {fileID: 1751984897308114306, guid: 8390d1253263fae46affc9dd222efbd4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 28.34
+      value: 28.079
       objectReference: {fileID: 0}
     - target: {fileID: 1751984897308114306, guid: 8390d1253263fae46affc9dd222efbd4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -9399,7 +9399,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1751984897308114306, guid: 8390d1253263fae46affc9dd222efbd4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 30.89
+      value: 31.607
       objectReference: {fileID: 0}
     - target: {fileID: 1751984897308114306, guid: 8390d1253263fae46affc9dd222efbd4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -9407,7 +9407,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1751984897308114306, guid: 8390d1253263fae46affc9dd222efbd4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 29.53
+      value: 29.386
       objectReference: {fileID: 0}
     - target: {fileID: 1751984897308114306, guid: 8390d1253263fae46affc9dd222efbd4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -27836,25 +27836,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathManager: {fileID: 0}
-  currentTime: 0
-  maxTime: 10
   timeBetweenWave: 30
   startTime: 5
-  currentWaveIndex: 0
-  currentGroupIndex: 0
-  entityCount: 0
-  entityToSpawn: {fileID: 0}
-  currentGroup:
-    typeOfEntity: {fileID: 0}
-    numberOfEntity: 0
-    spawnRate: 0
-    isRandomWave: 0
-  currentWave:
-    timeBetweenGroups: 0
-    allGroupsInWave: []
-  allWavesAreSpawned: 0
-  waveIsOver: 0
-  groupIsOver: 0
   wavesToSpawn:
   - timeBetweenGroups: 10
     allGroupsInWave:

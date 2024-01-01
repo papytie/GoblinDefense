@@ -29,7 +29,7 @@ public class Tower : MonoBehaviour
     [SerializeField] float detectionRate = 1f; // time between each detection loop
     [SerializeField] bool isAttacking = false; // switch to prevent multi attacking on a target
 
-    // The tower attack behaviour use a sequence of events : ( below)
+    // The tower attack behaviour use a serie of events : (see below)
     event Action OnEnemiesInRange = null;
     event Action OnTargetSelection = null;
     event Action OnTargetAcquired = null;
