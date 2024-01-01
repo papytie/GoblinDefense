@@ -48,9 +48,7 @@ public class Spawner : MonoBehaviour
     int currentGroupIndex = 0;
     int entityCount = 0;
     
-    bool allWavesAreSpawned = false;
-    bool waveIsOver = false;
-    bool groupIsOver = false;
+    //bool allWavesAreSpawned = false; //TODO: switch for end game
 
     event Action OnNextWave = null;
     event Action OnNextGroup = null;
@@ -74,11 +72,11 @@ public class Spawner : MonoBehaviour
 
     void WaveManagement()
     {
-        if (currentWaveIndex > wavesToSpawn.Count -1)
+        /*if (currentWaveIndex > wavesToSpawn.Count -1)
         {
             allWavesAreSpawned = true;
             return;
-        }
+        }*/
 
         currentWave = wavesToSpawn[currentWaveIndex];
         GroupManagement();
