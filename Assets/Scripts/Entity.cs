@@ -23,6 +23,7 @@ public class Entity : MonoBehaviour
     [SerializeField] float maxRandDist = 2;
     [SerializeField] float hitAnimDuration = .2f;
     [SerializeField] float reachPointDistance = .1f;
+    [SerializeField] float aimingPointHeight = 1;
     
     bool canMove = true;
     Vector3 targetPoint = Vector3.zero;
@@ -42,7 +43,7 @@ public class Entity : MonoBehaviour
     void Update()
     {
         FollowPath();
-        AimingPoint = transform.position + Vector3.up * 1;
+        AimingPoint = transform.position + Vector3.up * aimingPointHeight; //Set an aiming point for projectiles
     }
 
     void InitEntity()
