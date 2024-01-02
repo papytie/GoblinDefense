@@ -90,7 +90,7 @@ public class Entity : MonoBehaviour
 
     Vector3 RandomizedPointPos()
     {
-        Pathpoint _nextPoint = pathManager.Path[currentIndex];
+        GameObject _nextPoint = pathManager.Path[currentIndex];
         Vector3 _randomPos = Random.insideUnitSphere * maxRandDist;
         Vector3 _pathPointPos = _nextPoint.transform.position;
         Vector3 _randomizedPos = new Vector3(_pathPointPos.x + _randomPos.x, _pathPointPos.y, _pathPointPos.z + _randomPos.z);

@@ -9347,19 +9347,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 481832, guid: a5dfe91abe6cf084bb963f174722e6c5, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.20242643
+      value: 1.2024264
       objectReference: {fileID: 0}
     - target: {fileID: 481832, guid: a5dfe91abe6cf084bb963f174722e6c5, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.20242655
+      value: 1.2024266
       objectReference: {fileID: 0}
     - target: {fileID: 481832, guid: a5dfe91abe6cf084bb963f174722e6c5, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.20242655
+      value: 1.2024266
       objectReference: {fileID: 0}
     - target: {fileID: 481832, guid: a5dfe91abe6cf084bb963f174722e6c5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -.241999999
+      value: -0.242
       objectReference: {fileID: 0}
     - target: {fileID: 6401660, guid: a5dfe91abe6cf084bb963f174722e6c5, type: 3}
       propertyPath: m_Convex
@@ -11321,7 +11321,7 @@ PrefabInstance:
     - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: projToSpawn
       value: 
-      objectReference: {fileID: 4894271939449819038, guid: 07ccd97f0e7982a449889a74289168f8, type: 3}
+      objectReference: {fileID: 1256352363915415040, guid: 07ccd97f0e7982a449889a74289168f8, type: 3}
     - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: detectionRate
       value: 0.5
@@ -17138,7 +17138,7 @@ PrefabInstance:
     - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: projToSpawn
       value: 
-      objectReference: {fileID: 4894271939449819038, guid: 07ccd97f0e7982a449889a74289168f8, type: 3}
+      objectReference: {fileID: 1256352363915415040, guid: 07ccd97f0e7982a449889a74289168f8, type: 3}
     - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: detectionRate
       value: 0.5
@@ -27027,7 +27027,7 @@ PrefabInstance:
     - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: projToSpawn
       value: 
-      objectReference: {fileID: 4894271939449819038, guid: 07ccd97f0e7982a449889a74289168f8, type: 3}
+      objectReference: {fileID: 1256352363915415040, guid: 07ccd97f0e7982a449889a74289168f8, type: 3}
     - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: detectionRate
       value: 0.1
@@ -27867,7 +27867,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1763458267}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -29358,7 +29358,7 @@ PrefabInstance:
     - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: projToSpawn
       value: 
-      objectReference: {fileID: 4894271939449819038, guid: 07ccd97f0e7982a449889a74289168f8, type: 3}
+      objectReference: {fileID: 1256352363915415040, guid: 07ccd97f0e7982a449889a74289168f8, type: 3}
     - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: detectionRate
       value: 0.5
@@ -31584,7 +31584,7 @@ GameObject:
   - component: {fileID: 2007436805}
   - component: {fileID: 2007436804}
   m_Layer: 0
-  m_Name: PathManager
+  m_Name: Path
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31603,6 +31603,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   path: []
+  debugRadius: 1
 --- !u!4 &2007436805
 Transform:
   m_ObjectHideFlags: 0
@@ -31611,7 +31612,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2007436803}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -33403,7 +33404,7 @@ PrefabInstance:
     - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: projToSpawn
       value: 
-      objectReference: {fileID: 4894271939449819038, guid: 07ccd97f0e7982a449889a74289168f8, type: 3}
+      objectReference: {fileID: 1256352363915415040, guid: 07ccd97f0e7982a449889a74289168f8, type: 3}
     - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: detectionRate
       value: 0.5
@@ -34168,13 +34169,13 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1687084764}
+  - {fileID: 1763458269}
+  - {fileID: 2007436805}
   - {fileID: 1610145833}
   - {fileID: 1721720567}
   - {fileID: 52880495}
   - {fileID: 849963532}
   - {fileID: 539292861}
   - {fileID: 1304010194}
-  - {fileID: 1763458269}
-  - {fileID: 1687084764}
-  - {fileID: 2007436805}
   - {fileID: 2051962167}
