@@ -20,5 +20,5 @@ public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         }
         instance = this as T;
         instance.name += $"[{GetType().Name}]";
-    }
+    } //Prevents that this object can be instancied multiples times
 }

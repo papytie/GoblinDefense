@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class PathManager : Singleton<PathManager>
+public class PathManager : MonoBehaviour
 {
     public List<GameObject> Path => path;
 
@@ -32,6 +32,7 @@ public class PathManager : Singleton<PathManager>
         return _allPoints;
     } //get all gameObjects that is a child of this gameObject by Transform
 
+    // -------- DEBUG ---------
     private void OnDrawGizmos()
     {
         if (!showDebugGizmos) return;
@@ -66,6 +67,5 @@ public class PathManager : Singleton<PathManager>
                 Gizmos.color = Color.white;
             }
         }
-    } //Debug
-    
+    }
 }
