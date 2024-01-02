@@ -22,12 +22,14 @@ public class Tower : MonoBehaviour
     [SerializeField] TowerAnimation towerAnimation = null;
 
     [Header("Settings")]
-    [SerializeField, HideInInspector] List<Entity> entitiesInRange = new();
     [SerializeField] float towerRange = 20; // Entity detection range
     [SerializeField] float fireRate = 1; // time between each projectile spawn
     [SerializeField] float animationDuration = 1.66f; // set animation legth to proper synchro with fire rate
     [SerializeField] float detectionRate = 1f; // time between each detection loop
-    [SerializeField] bool isAttacking = false; // switch to prevent multi attacking on a target
+    [SerializeField] bool showDebugGizmos = true; // show debug
+
+    List<Entity> entitiesInRange = new();
+    bool isAttacking = false; // switch to prevent multi attacking on a target
 
     // The tower attack behaviour use a serie of events : (see below)
     event Action OnEnemiesInRange = null;
@@ -156,6 +158,7 @@ public class Tower : MonoBehaviour
     // -------- DEBUG ---------
     private void OnDrawGizmos()
     {
+        if (!showDebugGizmos) return;
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, towerRange);
         Gizmos.color = Color.white;

@@ -8877,7 +8877,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 60.000004
+  field of view: 65
   orthographic: 0
   orthographic size: 10
   m_Depth: 0
@@ -8903,8 +8903,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 585041553}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.28329796, y: -0.19815312, z: 0.059943184, w: -0.9364211}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.015667254, y: 0.94883734, z: -0.3095336, w: -0.06042563}
+  m_LocalPosition: {x: 17.68, y: 0.7446146, z: 32.870003}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9957,7 +9957,7 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 11
+  m_Priority: 20
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
@@ -11324,7 +11324,11 @@ PrefabInstance:
       objectReference: {fileID: 1256352363915415040, guid: 07ccd97f0e7982a449889a74289168f8, type: 3}
     - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: detectionRate
-      value: 0.5
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
+      propertyPath: showDebugGizmos
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: animationDuration
@@ -12738,8 +12742,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 843984708}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.28329796, y: -0.19815312, z: 0.059943184, w: -0.9364211}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.015667254, y: 0.94883734, z: -0.3095336, w: -0.06042563}
+  m_LocalPosition: {x: 17.68, y: 0.7446146, z: 32.870003}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17141,7 +17145,11 @@ PrefabInstance:
       objectReference: {fileID: 1256352363915415040, guid: 07ccd97f0e7982a449889a74289168f8, type: 3}
     - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: detectionRate
-      value: 0.5
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
+      propertyPath: showDebugGizmos
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: animationDuration
@@ -27033,6 +27041,10 @@ PrefabInstance:
       value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
+      propertyPath: showDebugGizmos
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: animationDuration
       value: 1.2
       objectReference: {fileID: 0}
@@ -29361,7 +29373,11 @@ PrefabInstance:
       objectReference: {fileID: 1256352363915415040, guid: 07ccd97f0e7982a449889a74289168f8, type: 3}
     - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: detectionRate
-      value: 0.5
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
+      propertyPath: showDebugGizmos
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: animationDuration
@@ -31604,6 +31620,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   path: []
   debugRadius: 1
+  showDebugGizmos: 1
 --- !u!4 &2007436805
 Transform:
   m_ObjectHideFlags: 0
@@ -33407,7 +33424,11 @@ PrefabInstance:
       objectReference: {fileID: 1256352363915415040, guid: 07ccd97f0e7982a449889a74289168f8, type: 3}
     - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: detectionRate
-      value: 0.5
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
+      propertyPath: showDebugGizmos
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: animationDuration
