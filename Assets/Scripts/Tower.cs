@@ -30,6 +30,7 @@ public class Tower : MonoBehaviour
 
     List<Entity> entitiesInRange = new();
     bool isAttacking = false; // switch to prevent multi attacking on a target
+    Quaternion baseRotation = Quaternion.identity; // used to save default rotation
 
     // The tower attack behaviour use a serie of events : (see below)
     event Action OnEnemiesInRange = null;
@@ -48,6 +49,8 @@ public class Tower : MonoBehaviour
         towerAnimation = GetComponent<TowerAnimation>();
         towerAnimation.UpdateFireRateFloatValue(fireRate);
 
+        baseRotation = transform.rotation; // Save default rotation
+
         EnableDetection(); // Step 0 : check for Entities in range
 
         OnEnemiesInRange += () => // Step 1 : Choose a target & disable detection
@@ -64,12 +67,13 @@ public class Tower : MonoBehaviour
         {
             mainTarget = null;
             IsAttacking = false;
+            transform.rotation = baseRotation; // Reset to default rotation
             EnableDetection();
         };
         OnTargetAcquired += () => // Step 3 : Begin Draw Arrow Animation & switch isAttacking
         {
             BeginFire();
-            towerAnimation.UpdateAttackTriggerParam();
+            towerAnimation.ToggleAttackTriggerParam();
             IsAttacking = true;
         };
         OnProjectileSpawn += () => // Step 4 : switch isAttacking and resume to Step 2
@@ -88,6 +92,7 @@ public class Tower : MonoBehaviour
 
         if (mainTarget == null)
         {
+            towerAnimation.ToggleDetectionTriggerParam();
             foreach (Entity _entity in EnemyManager.Instance.AllEntitiesInScene) // check all Entity in list
             {
                 if (_entity.IsDead || entitiesInRange.Contains(_entity)) continue;
@@ -142,7 +147,10 @@ public class Tower : MonoBehaviour
             CancelInvoke(nameof(FollowTarget));
             return;
         }
-        transform.LookAt(mainTarget.transform.position, transform.up);
+        //transform.LookAt(mainTarget.transform.position, transform.up);
+        transform.rotation = Quaternion.LookRotation(mainTarget.transform.position - transform.position); //Look to target
+        transform.rotation = new Quaternion(0, transform.rotation.y, 0, transform.rotation.w); //Constrain X and Z rotations to 0
+        
     }// LookAt Target or cancel own Invoke
 
     void EnableDetection()

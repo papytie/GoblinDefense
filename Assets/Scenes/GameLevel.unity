@@ -11312,7 +11312,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: fireRate
-      value: 1.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: towerRange
@@ -11333,6 +11333,18 @@ PrefabInstance:
     - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: animationDuration
       value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3985639484573013236, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: f74aacb7eac8cec4e834a8972f3336db, type: 3}
+    - target: {fileID: 3985639484573013236, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
+      propertyPath: m_WarningMessage
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3985639484573013236, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6159396793656154600, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -17133,7 +17145,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: fireRate
-      value: 1.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: towerRange
@@ -17154,6 +17166,18 @@ PrefabInstance:
     - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: animationDuration
       value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3985639484573013236, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: f74aacb7eac8cec4e834a8972f3336db, type: 3}
+    - target: {fileID: 3985639484573013236, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
+      propertyPath: m_WarningMessage
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3985639484573013236, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6159396793656154600, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -27026,7 +27050,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: fireRate
-      value: 1.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: towerRange
@@ -27047,6 +27071,18 @@ PrefabInstance:
     - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: animationDuration
       value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3985639484573013236, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: f74aacb7eac8cec4e834a8972f3336db, type: 3}
+    - target: {fileID: 3985639484573013236, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
+      propertyPath: m_WarningMessage
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3985639484573013236, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6159396793656154600, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -29362,7 +29398,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: fireRate
-      value: 1.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: towerRange
@@ -29383,6 +29419,18 @@ PrefabInstance:
     - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: animationDuration
       value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3985639484573013236, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: f74aacb7eac8cec4e834a8972f3336db, type: 3}
+    - target: {fileID: 3985639484573013236, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
+      propertyPath: m_WarningMessage
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3985639484573013236, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6159396793656154600, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -33413,7 +33461,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: fireRate
-      value: 1.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: towerRange
@@ -33434,6 +33482,18 @@ PrefabInstance:
     - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: animationDuration
       value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3985639484573013236, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: f74aacb7eac8cec4e834a8972f3336db, type: 3}
+    - target: {fileID: 3985639484573013236, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
+      propertyPath: m_WarningMessage
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3985639484573013236, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6159396793656154600, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: m_LocalPosition.x

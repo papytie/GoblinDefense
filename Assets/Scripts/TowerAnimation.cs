@@ -18,10 +18,16 @@ public class TowerAnimation : MonoBehaviour
         tower = GetComponent<Tower>();
     }
 
-    public void UpdateAttackTriggerParam()
+    public void ToggleAttackTriggerParam()
     {
         if (!animator) return;
         animator.SetTrigger("attackTrigger"); 
+    }
+
+    public void ToggleDetectionTriggerParam()
+    {
+        if (!animator) return;
+        animator.SetTrigger("detectionTrigger"); 
     }
 
     public void UpdateIsAttackingBoolParam(bool _value)

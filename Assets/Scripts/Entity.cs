@@ -111,7 +111,7 @@ public class Entity : MonoBehaviour
             OnDeath?.Invoke();
             return;
         }
-        OnDamageTaken?.Invoke();   
+        OnDamageTaken?.Invoke(); //TODO: replace hit by pain to immobilize when hp are below 1/2  
     } //Called by Projectiles
 
     public void DestroyEntity()
