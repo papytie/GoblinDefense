@@ -73,11 +73,11 @@ public class Spawner : MonoBehaviour
 
     void WaveManagement()
     {
-        /*if (currentWaveIndex > wavesToSpawn.Count -1)
+        if (currentWaveIndex > wavesToSpawn.Count -1)
         {
-            allWavesAreSpawned = true;
+            //allWavesAreSpawned = true;
             return;
-        }*/
+        }
 
         currentWave = wavesToSpawn[currentWaveIndex];
         GroupManagement();
