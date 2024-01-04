@@ -11,14 +11,20 @@ public class Entity : MonoBehaviour
     public bool IsDead { get => isDead; set { isDead = value;}} 
     public bool CanMove { get => canMove; set { canMove = value;}} 
 
+    [Header("Entity Settings")]
+    
     [Header("References")]
     [SerializeField] PathManager pathManager = null;
     [SerializeField] Spawner spawner = null;
     [SerializeField] EntityAnimation entityAnimation = null;
 
-    [Header("Settings")]
-    [SerializeField] float healthPoints = 10;
+    [Header("Stats")]
+    [SerializeField] int healthPoints = 10;
+    [SerializeField] int moneyReward = 1;
+    [SerializeField] int damageToPlayer = 1;
     [SerializeField] float moveSpeed = 5;
+    
+    [Header("Params")]
     [SerializeField] float despawnTime = 5;
     [SerializeField] float maxRandDist = 2;
     [SerializeField] float hitAnimDuration = .2f;
@@ -34,6 +40,7 @@ public class Entity : MonoBehaviour
     // Event used for Entity reactions behaviours
     event Action OnDamageTaken = null;
     event Action OnDeath = null;
+    event Action OnPathComplete = null;
 
     void Start()
     {
@@ -66,8 +73,15 @@ public class Entity : MonoBehaviour
             healthPoints = 0;
             IsDead = true;
             Invoke(nameof(DestroyEntity), despawnTime);
+            PlayerStats.Instance.AddMoney(moneyReward);
         };
-    } //add Functions to essentials events
+
+        OnPathComplete += () =>
+        {
+            DestroyEntity();
+            PlayerStats.Instance.RemoveHealth(damageToPlayer);
+        };
+    } //add logic to essentials events
 
     void FollowPath()
     {
@@ -82,7 +96,7 @@ public class Entity : MonoBehaviour
             currentIndex++;
             if (currentIndex > pathManager.Path.Count - 1)
             {
-                DestroyEntity();
+                OnPathComplete?.Invoke();
                 return;
             }
             targetPoint = RandomizedPointPos();

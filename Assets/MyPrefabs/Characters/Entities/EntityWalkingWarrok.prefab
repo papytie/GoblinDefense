@@ -87,6 +87,8 @@ MonoBehaviour:
   spawner: {fileID: 0}
   entityAnimation: {fileID: 0}
   healthPoints: 20
+  moneyReward: 5
+  damageToPlayer: 5
   moveSpeed: 2.5
   despawnTime: 5
   maxRandDist: 1
