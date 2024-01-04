@@ -22,10 +22,10 @@ public class EntityAnimation : MonoBehaviour
         animator.SetTrigger("isDead");
     }
     
-    public void UpdateIsHitTriggerParam()
+    public void UpdateIsWoundedBoolParam(bool _value)
     {
         if (!animator) return;
-        animator.SetTrigger("isHit");
+        animator.SetBool("isWounded", _value);
     }
     
     public void UpdateCanMoveBoolParam(bool _value)

@@ -19481,6 +19481,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MageTower (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 19822695718150897, guid: 91721e0272d489c4fa78e71deaf2f857, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 796499484316350539, guid: 91721e0272d489c4fa78e71deaf2f857, type: 3}
       propertyPath: m_LocalPosition.x
       value: 19.519827
@@ -27975,20 +27979,6 @@ MonoBehaviour:
     - typeOfEntity: {fileID: 1513423798908320085, guid: c3f5d0ee6c832ae418d5330ec5e3c6b4, type: 3}
       numberOfEntity: 1
       spawnRate: 1
-      isRandomWave: 0
-    - typeOfEntity: {fileID: 7261137463679823323, guid: 8a28113d0c5096c4ca82c64a0aa78bae, type: 3}
-      numberOfEntity: 5
-      spawnRate: 2
-      isRandomWave: 0
-  - timeBetweenGroups: 10
-    allGroupsInWave:
-    - typeOfEntity: {fileID: 7261137463679823323, guid: 8a28113d0c5096c4ca82c64a0aa78bae, type: 3}
-      numberOfEntity: 5
-      spawnRate: 1
-      isRandomWave: 0
-    - typeOfEntity: {fileID: 1513423798908320085, guid: c3f5d0ee6c832ae418d5330ec5e3c6b4, type: 3}
-      numberOfEntity: 3
-      spawnRate: 5
       isRandomWave: 0
 --- !u!4 &1763458269
 Transform:

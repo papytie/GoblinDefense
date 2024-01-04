@@ -10,6 +10,7 @@ public class Entity : MonoBehaviour
     public Vector3 AimingPoint { get => aimingPoint; set { aimingPoint = value;}}
     public bool IsDead { get => isDead; set { isDead = value;}} 
     public bool CanMove { get => canMove; set { canMove = value;}} 
+    public bool IsWounded { get => isWounded; set { isWounded = value;}} 
 
     [Header("Entity Settings")]
     
@@ -19,10 +20,12 @@ public class Entity : MonoBehaviour
     [SerializeField] EntityAnimation entityAnimation = null;
 
     [Header("Stats")]
-    [SerializeField] int healthPoints = 10;
+    [SerializeField] int baseHealth = 10;
+    [SerializeField] int maxHealth = 20;
     [SerializeField] int moneyReward = 1;
     [SerializeField] int damageToPlayer = 1;
-    [SerializeField] float moveSpeed = 5;
+    [SerializeField] float baseMoveSpeed = 5;
+    [SerializeField] float woundedMoveSpeed = 5;
     
     [Header("Params")]
     [SerializeField] float despawnTime = 5;
@@ -31,14 +34,17 @@ public class Entity : MonoBehaviour
     [SerializeField] float reachPointDistance = .1f;
     [SerializeField] float aimingPointHeight = 1;
     
-    bool canMove = true;
     Vector3 targetPoint = Vector3.zero;
     Vector3 aimingPoint = Vector3.zero;
+    bool canMove = true;
     bool isDead = false;
+    bool isWounded = false;
+    int currentHealth = 1;
     int currentIndex = 1;
+    float currentMoveSpeed = 1;
 
     // Event used for Entity reactions behaviours
-    event Action OnDamageTaken = null;
+    event Action OnEntityIsWounded = null;
     event Action OnDeath = null;
     event Action OnPathComplete = null;
 
@@ -60,26 +66,30 @@ public class Entity : MonoBehaviour
         entityAnimation = GetComponent<EntityAnimation>();
         targetPoint = RandomizedPointPos();
 
-        OnDamageTaken += () =>
+        currentHealth = baseHealth;
+        currentMoveSpeed = baseMoveSpeed;
+
+        OnEntityIsWounded += () =>
         {
-            entityAnimation.UpdateIsHitTriggerParam();
+            isWounded = true;
+            entityAnimation.UpdateIsWoundedBoolParam(true);
             CanMove = false;
+            currentMoveSpeed = woundedMoveSpeed;
             Invoke(nameof(SetCanMoveTrue), hitAnimDuration);
         };
 
         OnDeath += () =>
         {
+            PlayerStats.Instance.AddMoney(moneyReward);
             entityAnimation.UpdateIsDeadTriggerParam();
-            healthPoints = 0;
             IsDead = true;
             Invoke(nameof(DestroyEntity), despawnTime);
-            PlayerStats.Instance.AddMoney(moneyReward);
         };
 
         OnPathComplete += () =>
         {
-            DestroyEntity();
             PlayerStats.Instance.RemoveHealth(damageToPlayer);
+            DestroyEntity();
         };
     } //add logic to essentials events
 
@@ -87,7 +97,7 @@ public class Entity : MonoBehaviour
     {
         if(isDead || !canMove) return;
 
-        transform.position += (targetPoint - transform.position).normalized * moveSpeed * Time.deltaTime;
+        transform.position += (targetPoint - transform.position).normalized * currentMoveSpeed * Time.deltaTime;
         transform.LookAt(targetPoint);
         
         float _dist = Vector3.Distance(transform.position, targetPoint);
@@ -119,13 +129,17 @@ public class Entity : MonoBehaviour
 
     public void TakeDamage(int _dmg)
     {
-        healthPoints -= _dmg;
-        if (healthPoints <= 0)
+        currentHealth -= _dmg;
+        if (currentHealth <= 0)
         {
+            currentHealth = 0;
             OnDeath?.Invoke();
             return;
         }
-        OnDamageTaken?.Invoke(); //TODO: replace hit by pain to immobilize when hp are below 1/2  
+        if (currentHealth < baseHealth/2 && !isWounded) 
+        {
+            OnEntityIsWounded?.Invoke();
+        }
     } //Called by Projectiles
 
     public void DestroyEntity()

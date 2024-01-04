@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a9379255ef1926b41b00df4d22f4ddaf, type: 3}
       propertyPath: m_Name
-      value: EntityGoblin
+      value: EntityWalkingGoblin
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -86,8 +86,12 @@ MonoBehaviour:
   pathManager: {fileID: 0}
   spawner: {fileID: 0}
   entityAnimation: {fileID: 0}
-  healthPoints: 5
-  moveSpeed: 1.5
+  baseHealth: 5
+  maxHealth: 10
+  moneyReward: 1
+  damageToPlayer: 1
+  baseMoveSpeed: 2
+  woundedMoveSpeed: 1
   despawnTime: 5
   maxRandDist: 1
   hitAnimDuration: 1.5

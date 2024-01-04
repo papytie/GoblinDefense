@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4f8857c495776c943a72e3403f711f6a, type: 3}
       propertyPath: m_Name
-      value: EntityWarrok
+      value: EntityWalkingWarrok
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -86,13 +86,15 @@ MonoBehaviour:
   pathManager: {fileID: 0}
   spawner: {fileID: 0}
   entityAnimation: {fileID: 0}
-  healthPoints: 20
+  baseHealth: 25
+  maxHealth: 50
   moneyReward: 5
   damageToPlayer: 5
-  moveSpeed: 2.5
+  baseMoveSpeed: 2.5
+  woundedMoveSpeed: 1.5
   despawnTime: 5
   maxRandDist: 1
-  hitAnimDuration: 0
+  hitAnimDuration: 2
   reachPointDistance: 0.1
   aimingPointHeight: 2
 --- !u!95 &4011594062738555758
