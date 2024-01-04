@@ -86,7 +86,7 @@ MonoBehaviour:
   pathManager: {fileID: 0}
   spawner: {fileID: 0}
   entityAnimation: {fileID: 0}
-  baseHealth: 10
+  baseHealth: 20
   maxHealth: 50
   moneyReward: 5
   damageToPlayer: 5
