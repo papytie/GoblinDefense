@@ -26454,6 +26454,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1687084764}
   - component: {fileID: 1687084763}
+  - component: {fileID: 1687084766}
   - component: {fileID: 1687084765}
   m_Layer: 0
   m_Name: GameController
@@ -26586,6 +26587,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1687084766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1687084762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 177619d34bf41e84dbd254cd93cb2f3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerBaseHealth: 10
+  playerMaxHealth: 20
+  playerBaseMoney: 0
+  playerMaxMoney: 99
 --- !u!1001 &1690138535
 PrefabInstance:
   m_ObjectHideFlags: 0
