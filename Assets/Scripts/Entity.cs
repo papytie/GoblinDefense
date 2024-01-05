@@ -10,7 +10,9 @@ public class Entity : MonoBehaviour
     public Vector3 AimingPoint { get => aimingPoint; set { aimingPoint = value;}}
     public bool IsDead { get => isDead; set { isDead = value;}} 
     public bool CanMove { get => canMove; set { canMove = value;}} 
-    public bool IsWounded { get => isWounded; set { isWounded = value;}} 
+    public bool IsWounded { get => isWounded; set { isWounded = value;}}
+    public int CurrentHealth => currentHealth;
+    public int BaseHealth => baseHealth;
 
     [Header("Entity Settings")]
     
