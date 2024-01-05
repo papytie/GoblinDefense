@@ -26816,8 +26816,28 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5530710326983796489, guid: 91721e0272d489c4fa78e71deaf2f857, type: 3}
+      propertyPath: fireRate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5530710326983796489, guid: 91721e0272d489c4fa78e71deaf2f857, type: 3}
+      propertyPath: upProjOffset
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5530710326983796489, guid: 91721e0272d489c4fa78e71deaf2f857, type: 3}
       propertyPath: detectionRate
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5530710326983796489, guid: 91721e0272d489c4fa78e71deaf2f857, type: 3}
+      propertyPath: fwdProjOffset
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5530710326983796489, guid: 91721e0272d489c4fa78e71deaf2f857, type: 3}
+      propertyPath: projPosOffset.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5530710326983796489, guid: 91721e0272d489c4fa78e71deaf2f857, type: 3}
+      propertyPath: projPosOffset.y
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5530710326983796489, guid: 91721e0272d489c4fa78e71deaf2f857, type: 3}
       propertyPath: animationDuration
@@ -27147,8 +27167,28 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1256352363915415040, guid: 07ccd97f0e7982a449889a74289168f8, type: 3}
     - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
+      propertyPath: upProjOffset
+      value: 2.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: detectionRate
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
+      propertyPath: fwdProjOffset
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
+      propertyPath: rgtProjOffset
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
+      propertyPath: projPosOffset.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
+      propertyPath: projPosOffset.y
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: showDebugGizmos
@@ -27216,7 +27256,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6787278764511216466, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

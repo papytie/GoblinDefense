@@ -18,34 +18,33 @@ public class Tower : MonoBehaviour
     }
     public Entity MainTarget => mainTarget;
 
-    [Header("References")]
-    [SerializeField] Projectiles projToSpawn = null;
-    [SerializeField] Entity mainTarget = null;
-    [SerializeField] TowerAnimation towerAnimation = null;
+    [Header("Tower Settings")]
 
-    [Header("Settings")]
+    [Header("Stats")]
     [SerializeField] float towerRange = 20; // Entity detection range
     [SerializeField] float fireRate = 1; // time between each projectile spawn
-    [SerializeField] float animationDuration = 1.66f; // set animation legth to proper synchro with fire rate
-    [SerializeField] float detectionRate = 1f; // time between each detection loop
+    
+    [Header("Projectile")]
+    [SerializeField] Projectiles projToSpawn = null;
+    [SerializeField] float upProjOffset = 0; // offset position of projectile when spawned
+    [SerializeField] float fwdProjOffset = 0; // offset position of projectile when spawned
+    [SerializeField] float rgtProjOffset = 0; // offset position of projectile when spawned
+
+    [Header("Parameters")]
+    [SerializeField] float refreshRate = .1f; // refresh LookAt rotation, CheckTarget and Detection
     [SerializeField] bool showDebugGizmos = true; // show debug
 
-    List<Entity> entitiesInRange = new();
-    bool isAttacking = false; // switch to prevent multi attacking on a target
+    TowerAnimation towerAnimation = null; // ref to animation script
+    List<Entity> entitiesInRange = new(); // detection list
+    Entity mainTarget = null; // selected Target
     Quaternion baseRotation = Quaternion.identity; // used to save default rotation
+    bool isAttacking = false; // switch to prevent multi attacking on a target
 
     // The tower attack behaviour use a serie of events : (see below)
     event Action OnEnemiesInRange = null;
-    event Action OnTargetSelection = null;
     event Action OnTargetAcquired = null;
-    event Action OnProjectileSpawn = null;
     event Action OnTargetExpired = null;
 
-    private void Awake()
-    {
-        towerAnimation = GetComponent<TowerAnimation>();
-        
-    }
     void Start()
     {
         InitTower();
@@ -53,6 +52,7 @@ public class Tower : MonoBehaviour
 
     void InitTower()
     {
+        towerAnimation = GetComponent<TowerAnimation>();
         towerAnimation.UpdateFireRateFloatValue(fireRate);
 
         baseRotation = transform.rotation; // Save default rotation
@@ -61,33 +61,25 @@ public class Tower : MonoBehaviour
 
         OnEnemiesInRange += () => // Step 1 : Choose a target & disable detection
         {
-            PickTarget();
+            PickTarget(); //=> to Step 2 
             DisableDetection();
         };
-        OnTargetSelection += () => // Step 2 : Check main Target if isDead || !InRange
+
+        OnTargetAcquired += () => // Step 2 : Switch isAttacking and begin animation cycle
         {
-            CheckTarget();
+            InvokeRepeating(nameof(FollowTarget), 0, refreshRate);
+            InvokeRepeating(nameof(CheckTarget), 0, refreshRate);
+            IsAttacking = true;
         };
-        OnTargetExpired += () => // CANCELATION : Basically reset to Step 0
+
+        OnTargetExpired += () => // CANCELATION : reset to Step 0
         {
             mainTarget = null;
             IsAttacking = false;
             transform.rotation = baseRotation; // Reset to default rotation
             EnableDetection();
         };
-        OnTargetAcquired += () => // Step 3 : Begin Draw Arrow Animation & switch isAttacking
-        {
-            InvokeRepeating(nameof(FollowTarget), 0, .1f);
-            InvokeRepeating(nameof(CheckTarget), 0, .1f);
-            IsAttacking = true;
-            //BeginFire();
-            //towerAnimation.ToggleAttackTriggerParam();
-        };
-        OnProjectileSpawn += () => // Step 4 : switch isAttacking and resume to Step 2
-        {
-            IsAttacking = false;
-            CheckTarget();
-        };
+
     }// Add Functions to essentials events
 
     void EntityDetection()
@@ -122,22 +114,20 @@ public class Tower : MonoBehaviour
 
         mainTarget = entitiesInRange[0];
         OnTargetAcquired?.Invoke();
-        //OnTargetSelection?.Invoke(); // STEP 2
     }// Take the first element of the list as mainTarget
 
-
-    /*void BeginFire()
+    void SpawnProjectile()
     {
-        if (!mainTarget || isAttacking) return;
-        Invoke(nameof(SpawnArrow), animationDuration / fireRate);
-    }// Begin animation and Invoke delayed projectile*/
+        if (mainTarget == null) return;
 
-    void SpawnArrow()
-    {
-        Projectiles _proj = Instantiate(projToSpawn, transform.position + transform.up * 2, transform.rotation);
-        //OnProjectileSpawn?.Invoke(); // STEP 4
+        Projectiles _proj = Instantiate(projToSpawn, 
+                                        transform.position + 
+                                        (transform.up * upProjOffset) + 
+                                        (transform.forward * fwdProjOffset) + 
+                                        (transform.right * rgtProjOffset), 
+                                        transform.rotation);
         _proj.SetTowerTargetRef(this);
-    }// Spawn projectile and end attack sequence
+    }// Called in Attack animation clip used
 
     void CheckTarget()
     {
@@ -145,10 +135,8 @@ public class Tower : MonoBehaviour
         {
             CancelInvoke(nameof(CheckTarget));
             OnTargetExpired?.Invoke(); // CANCELATION
-            //return;
         }
-        //OnTargetAcquired?.Invoke(); // STEP 3
-    }// Check that mainTarget is alive and in range
+    }// Check if mainTarget is alive and in range or cancel attack cycle
 
     void FollowTarget()
     {
@@ -157,7 +145,6 @@ public class Tower : MonoBehaviour
             CancelInvoke(nameof(FollowTarget));
             return;
         }
-        //transform.LookAt(mainTarget.transform.position, transform.up);
         transform.rotation = Quaternion.LookRotation(mainTarget.transform.position - transform.position); //Look to target
         transform.rotation = new Quaternion(0, transform.rotation.y, 0, transform.rotation.w); //Constrain X and Z rotations to 0
         
@@ -165,7 +152,7 @@ public class Tower : MonoBehaviour
 
     void EnableDetection()
     {
-        InvokeRepeating(nameof(EntityDetection), 0, detectionRate);
+        InvokeRepeating(nameof(EntityDetection), 0, refreshRate);
     }
 
     void DisableDetection()
