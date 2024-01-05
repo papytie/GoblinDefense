@@ -37,7 +37,7 @@ public class Spawner : MonoBehaviour
     [Header("Spawner Settings")]
     [SerializeField] float timeBetweenWave = 30; //TODO: create an option to begin next wave only when all entities are dead
     [SerializeField] float startTime = 5;
-    [SerializeField] float upOffsetSpawn = 2;
+    //[SerializeField] float upOffsetSpawn = 2;
         
     [Header("Waves Settings")]
     [SerializeField] List<FWave> wavesToSpawn = new();

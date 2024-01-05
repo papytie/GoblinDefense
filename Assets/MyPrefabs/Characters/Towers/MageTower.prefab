@@ -84,13 +84,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f130f18c7420ec449c85051a6b529f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projToSpawn: {fileID: -3515791040645049566, guid: cc95f8ea16e61f64db1f37c46b5a8d9b, type: 3}
-  mainTarget: {fileID: 0}
-  towerAnimation: {fileID: 0}
   towerRange: 20
   fireRate: 1
-  animationDuration: 2.5
-  detectionRate: 0.5
+  projToSpawn: {fileID: -3515791040645049566, guid: cc95f8ea16e61f64db1f37c46b5a8d9b, type: 3}
+  upProjOffset: 1.5
+  fwdProjOffset: 1
+  rgtProjOffset: 0
+  refreshRate: 0.1
   showDebugGizmos: 1
 --- !u!114 &6511264408173062314
 MonoBehaviour:
