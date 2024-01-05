@@ -25,11 +25,11 @@ public class Projectiles : MonoBehaviour
 
     void MovementBehaviour()
     {
-        if (target == null || target.IsDead) 
+        /*if (target == null || target.IsDead) 
         {
             Destroy(gameObject);
             return;
-        }
+        }*/
 
         // Using AimingPoint instead of base transform.position to improve projectile trajectory
         transform.position += (target.AimingPoint - transform.position).normalized * moveSpeed * Time.deltaTime; 
@@ -38,8 +38,9 @@ public class Projectiles : MonoBehaviour
         float _dist = Vector3.Distance(target.AimingPoint, transform.position);
         if (_dist < impactDist)
         {
-            target.TakeDamage(damageValue);
             Destroy(gameObject);
+            if (!target.IsDead)
+                target.TakeDamage(damageValue);
         }
 
     } // Destroy this if target is dead

@@ -41,6 +41,11 @@ public class Tower : MonoBehaviour
     event Action OnProjectileSpawn = null;
     event Action OnTargetExpired = null;
 
+    private void Awake()
+    {
+        towerAnimation = GetComponent<TowerAnimation>();
+        
+    }
     void Start()
     {
         InitTower();
@@ -48,7 +53,6 @@ public class Tower : MonoBehaviour
 
     void InitTower()
     {
-        towerAnimation = GetComponent<TowerAnimation>();
         towerAnimation.UpdateFireRateFloatValue(fireRate);
 
         baseRotation = transform.rotation; // Save default rotation
@@ -63,7 +67,6 @@ public class Tower : MonoBehaviour
         OnTargetSelection += () => // Step 2 : Check main Target if isDead || !InRange
         {
             CheckTarget();
-            InvokeRepeating(nameof(FollowTarget), 0, .1f);
         };
         OnTargetExpired += () => // CANCELATION : Basically reset to Step 0
         {
@@ -74,9 +77,11 @@ public class Tower : MonoBehaviour
         };
         OnTargetAcquired += () => // Step 3 : Begin Draw Arrow Animation & switch isAttacking
         {
-            BeginFire();
-            towerAnimation.ToggleAttackTriggerParam();
+            InvokeRepeating(nameof(FollowTarget), 0, .1f);
+            InvokeRepeating(nameof(CheckTarget), 0, .1f);
             IsAttacking = true;
+            //BeginFire();
+            //towerAnimation.ToggleAttackTriggerParam();
         };
         OnProjectileSpawn += () => // Step 4 : switch isAttacking and resume to Step 2
         {
@@ -116,31 +121,34 @@ public class Tower : MonoBehaviour
         if (entitiesInRange.Count == 0) return;
 
         mainTarget = entitiesInRange[0];
-        OnTargetSelection?.Invoke(); // STEP 2
+        OnTargetAcquired?.Invoke();
+        //OnTargetSelection?.Invoke(); // STEP 2
     }// Take the first element of the list as mainTarget
+
+
+    /*void BeginFire()
+    {
+        if (!mainTarget || isAttacking) return;
+        Invoke(nameof(SpawnArrow), animationDuration / fireRate);
+    }// Begin animation and Invoke delayed projectile*/
+
+    void SpawnArrow()
+    {
+        Projectiles _proj = Instantiate(projToSpawn, transform.position + transform.up * 2, transform.rotation);
+        //OnProjectileSpawn?.Invoke(); // STEP 4
+        _proj.SetTowerTargetRef(this);
+    }// Spawn projectile and end attack sequence
 
     void CheckTarget()
     {
         if (Vector3.Distance(transform.position, mainTarget.transform.position) > towerRange || mainTarget.IsDead)
         {
+            CancelInvoke(nameof(CheckTarget));
             OnTargetExpired?.Invoke(); // CANCELATION
-            return;
+            //return;
         }
-        OnTargetAcquired?.Invoke(); // STEP 3
+        //OnTargetAcquired?.Invoke(); // STEP 3
     }// Check that mainTarget is alive and in range
-
-    void BeginFire()
-    {
-        if (!mainTarget || isAttacking) return;
-        Invoke(nameof(SpawnArrow), animationDuration / fireRate);
-    }// Begin animation and Invoke delayed projectile
-
-    void SpawnArrow()
-    {
-        Projectiles _proj = Instantiate(projToSpawn, transform.position + transform.up * 2, transform.rotation);
-        OnProjectileSpawn?.Invoke(); // STEP 4
-        _proj.SetTowerTargetRef(this);
-    }// Spawn projectile and end attack sequence
 
     void FollowTarget()
     {
