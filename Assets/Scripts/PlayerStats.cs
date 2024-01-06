@@ -6,6 +6,7 @@ public class PlayerStats : Singleton<PlayerStats>
 {
     public int PlayerCurrentHealth => playerCurrentHealth;
     public int PlayerCurrentMoney => playerCurrentMoney;
+    public int PlayerBaseHealth => playerBaseHealth;
     public bool GameIsOver => gameIsOver;
 
     [Header("Player Settings")]

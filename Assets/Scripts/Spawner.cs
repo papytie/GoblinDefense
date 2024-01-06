@@ -31,6 +31,9 @@ public struct FGroup //Contains variables & options for each groups of entities 
 
 public class Spawner : MonoBehaviour 
 {
+    public float CurrentWaveTime => currentWaveTime;
+    public float CurrentWaveTotalTime => currentWaveTotalTime;
+
     [Header("References")]
     [SerializeField] PathManager pathManager = null;
 
@@ -47,7 +50,8 @@ public class Spawner : MonoBehaviour
     int currentWaveIndex = 0;
     int currentGroupIndex = 0;
     int entityCount = 0;
-
+    float currentWaveTime = 0;
+    float currentWaveTotalTime = 0;
 
     //bool allWavesAreSpawned = false; //TODO: switch for end game
 
@@ -61,11 +65,24 @@ public class Spawner : MonoBehaviour
         Invoke(nameof(WaveManagement), startTime);
     }
 
+    private void Update()
+    {
+        //if (currentWaveTotalTime == 0) return;
+
+        currentWaveTime = UpdateWaveTimerValue();
+        //Debug.Log("current Timer value is : " +  currentWaveTime);
+    }
+
     void InitSpawner()
     {
         pathManager = FindObjectOfType<PathManager>();
+        currentWaveTotalTime = startTime;
 
-        OnNextWave += () => Invoke(nameof(WaveManagement), timeBetweenWave);
+        OnNextWave += () =>
+        {
+            Invoke(nameof(WaveManagement), timeBetweenWave);
+
+        };
         OnNextGroup += () => Invoke(nameof(GroupManagement), currentWave.TimeBetweenGroups);
         OnEntitySpawn += () => Invoke(nameof(EntityManagement), currentGroup.SpawnRate);
 
@@ -80,6 +97,7 @@ public class Spawner : MonoBehaviour
         }
 
         currentWave = wavesToSpawn[currentWaveIndex];
+        InitiateWaveTimer();
         GroupManagement();
     } //Check for waves to spawn, set currentWave ref & launch sequence || Stop sequence
 
@@ -118,4 +136,41 @@ public class Spawner : MonoBehaviour
         _entity.SetEntityRef(pathManager, this);
     } //Spawn target entity and give it pathManager and spawner ref
 
+    float UpdateWaveTimerValue()
+    {
+        currentWaveTime += Time.deltaTime;
+        if (currentWaveTime >= currentWaveTotalTime) 
+            return currentWaveTotalTime;
+            
+        else return currentWaveTime;
+    }
+
+    float WaveTotalTime(FWave _currentWave)
+    {
+        float _totalTime = 0;
+        foreach(FGroup _group in _currentWave.AllGroupsInWave)
+        {
+            _totalTime += (_currentWave.TimeBetweenGroups + GroupTotalTime(_group));
+
+        }
+        return _totalTime;
+    }
+
+    float GroupTotalTime(FGroup _group)
+    {
+        float _totalTime = 0;
+        int _size = _group.NumberOfEntity;
+        for (int i = 0; i < _size; i++)
+        {
+            _totalTime += _group.SpawnRate;
+        }
+        return _totalTime;
+    }
+
+    void InitiateWaveTimer()
+    {
+        currentWaveTime = 0;
+        currentWaveTotalTime = WaveTotalTime(currentWave); //Set new totaltime
+        Debug.Log("Wave total time is : " + currentWaveTotalTime);
+    }
 }

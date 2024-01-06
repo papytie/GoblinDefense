@@ -23,7 +23,7 @@ public class Entity : MonoBehaviour
 
     [Header("Stats")]
     [SerializeField] int baseHealth = 10;
-    [SerializeField] int maxHealth = 20;
+    //[SerializeField] int maxHealth = 20;
     [SerializeField] int moneyReward = 1;
     [SerializeField] int damageToPlayer = 1;
     [SerializeField] float baseMoveSpeed = 5;

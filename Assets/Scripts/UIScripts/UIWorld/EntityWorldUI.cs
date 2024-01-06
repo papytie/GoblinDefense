@@ -20,7 +20,7 @@ public class EntityWorldUI : MonoBehaviour
     void Update()
     {
         healthBar.value = UpdateHealthBar();
-        canvas.transform.LookAt(mainCamera.transform.position);
+        canvas.transform.LookAt(mainCamera.transform.position); //Always Look at mainCamera
     }
 
     float UpdateHealthBar()

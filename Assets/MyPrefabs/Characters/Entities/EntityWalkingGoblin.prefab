@@ -239,7 +239,7 @@ MonoBehaviour:
   entityAnimation: {fileID: 0}
   baseHealth: 8
   maxHealth: 20
-  moneyReward: 1
+  moneyReward: 10
   damageToPlayer: 1
   baseMoveSpeed: 1.5
   woundedMoveSpeed: 1
