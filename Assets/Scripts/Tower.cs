@@ -160,6 +160,16 @@ public class Tower : MonoBehaviour
         CancelInvoke(nameof(EntityDetection));
     }
 
+    public void DestroyTower()
+    {
+        Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        
+    }
+
     // -------- DEBUG ---------
     private void OnDrawGizmos()
     {

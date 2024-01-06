@@ -4,23 +4,21 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public class EntityWorldUI : MonoBehaviour
+public class EntityWorldUI : UIWorldElement
 {
     [SerializeField] Slider healthBar = null;
-    [SerializeField] Canvas canvas = null;
-    Camera mainCamera = null;
     Entity entityRef = null;
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         entityRef = GetComponent<Entity>();
-        mainCamera = Camera.main;
     }
 
-    void Update()
+    protected override void Update()
     {
+        base.Update();
         healthBar.value = UpdateHealthBar();
-        canvas.transform.LookAt(mainCamera.transform.position); //Always Look at mainCamera
     }
 
     float UpdateHealthBar()

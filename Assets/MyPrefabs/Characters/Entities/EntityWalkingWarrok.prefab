@@ -227,8 +227,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7b0044b80472304cb9933a503eb1df7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthBar: {fileID: 6974788302096836001}
   canvas: {fileID: 2292046995801423530}
+  mainCamera: {fileID: 0}
+  healthBar: {fileID: 6974788302096836001}
 --- !u!114 &1513423798908320085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,8 +245,7 @@ MonoBehaviour:
   pathManager: {fileID: 0}
   spawner: {fileID: 0}
   entityAnimation: {fileID: 0}
-  baseHealth: 50
-  maxHealth: 100
+  baseHealth: 25
   moneyReward: 50
   damageToPlayer: 5
   baseMoveSpeed: 2.5

@@ -7,9 +7,14 @@ public class TowerAnimation : MonoBehaviour
     Animator animator = null;
     Tower tower = null;
 
-    void Start()
+    private void Awake()
     {
         InitTowerAnimation();
+        
+    }
+
+    void Start()
+    {
     }
 
     void InitTowerAnimation()
