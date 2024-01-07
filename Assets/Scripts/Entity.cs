@@ -90,8 +90,10 @@ public class Entity : MonoBehaviour
 
         OnPathComplete += () =>
         {
+            IsDead = true;
+            entityAnimation.UpdateVictoryTriggerParam();
             PlayerStats.Instance.RemoveHealth(damageToPlayer);
-            DestroyEntity();
+            Invoke(nameof(DestroyEntity), despawnTime);
         };
     } //add logic to essentials events
 
@@ -138,7 +140,7 @@ public class Entity : MonoBehaviour
             OnDeath?.Invoke();
             return;
         }
-        if (currentHealth < baseHealth/2 && !isWounded) 
+        if (currentHealth <= baseHealth/2 && !isWounded) 
         {
             OnEntityIsWounded?.Invoke();
         }

@@ -21,6 +21,12 @@ public class EntityAnimation : MonoBehaviour
         if (!animator) return;
         animator.SetTrigger("isDead");
     }
+
+    public void UpdateVictoryTriggerParam()
+    {
+        if (!animator) return;
+        animator.SetTrigger("victory");
+    }
     
     public void UpdateIsWoundedBoolParam(bool _value)
     {

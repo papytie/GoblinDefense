@@ -4801,7 +4801,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   impactDist: 0.5
-  damageValue: 5
+  damageValue: 3
 --- !u!198 &19800002
 ParticleSystem:
   m_ObjectHideFlags: 0

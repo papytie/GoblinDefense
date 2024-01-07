@@ -26,13 +26,15 @@ public struct FGroup //Contains variables & options for each groups of entities 
     [SerializeField] Entity typeOfEntity;
     [SerializeField] int numberOfEntity;
     [SerializeField] float spawnRate;
-    [SerializeField] bool isRandomWave;
+    //[SerializeField] bool isRandomWave;
 }
 
 public class Spawner : MonoBehaviour 
 {
     public float CurrentWaveTime => currentWaveTime;
     public float CurrentWaveTotalTime => currentWaveTotalTime;
+    public string UIWaveIndex => uIWaveIndex;
+    public bool IsWaveSpawning => isWaveSpawning;
 
     [Header("References")]
     [SerializeField] PathManager pathManager = null;
@@ -40,7 +42,6 @@ public class Spawner : MonoBehaviour
     [Header("Spawner Settings")]
     [SerializeField] float timeBetweenWave = 30; //TODO: create an option to begin next wave only when all entities are dead
     [SerializeField] float startTime = 5;
-    //[SerializeField] float upOffsetSpawn = 2;
         
     [Header("Waves Settings")]
     [SerializeField] List<FWave> wavesToSpawn = new();
@@ -52,6 +53,8 @@ public class Spawner : MonoBehaviour
     int entityCount = 0;
     float currentWaveTime = 0;
     float currentWaveTotalTime = 0;
+    bool isWaveSpawning = false;
+    string uIWaveIndex = "";
 
     //bool allWavesAreSpawned = false; //TODO: switch for end game
 
@@ -63,12 +66,11 @@ public class Spawner : MonoBehaviour
     {
         InitSpawner();
         Invoke(nameof(WaveManagement), startTime);
+        //InitiateWaveTimer();
     }
 
     private void Update()
     {
-        //if (currentWaveTotalTime == 0) return;
-
         currentWaveTime = UpdateWaveTimerValue();
         //Debug.Log("current Timer value is : " +  currentWaveTime);
     }
@@ -77,12 +79,13 @@ public class Spawner : MonoBehaviour
     {
         pathManager = FindObjectOfType<PathManager>();
         currentWaveTotalTime = startTime;
+        Invoke(nameof(SetIsWaveStarted), startTime);
 
         OnNextWave += () =>
         {
             Invoke(nameof(WaveManagement), timeBetweenWave);
-
         };
+
         OnNextGroup += () => Invoke(nameof(GroupManagement), currentWave.TimeBetweenGroups);
         OnEntitySpawn += () => Invoke(nameof(EntityManagement), currentGroup.SpawnRate);
 
@@ -92,7 +95,7 @@ public class Spawner : MonoBehaviour
     {
         if (currentWaveIndex > wavesToSpawn.Count -1)
         {
-            //allWavesAreSpawned = true;
+            isWaveSpawning = false;
             return;
         }
 
@@ -143,7 +146,7 @@ public class Spawner : MonoBehaviour
             return currentWaveTotalTime;
             
         else return currentWaveTime;
-    }
+    } //Custom timer with totalWaveTime as maximum, used to show Wave Start Timer in HUD
 
     float WaveTotalTime(FWave _currentWave)
     {
@@ -153,8 +156,8 @@ public class Spawner : MonoBehaviour
             _totalTime += (_currentWave.TimeBetweenGroups + GroupTotalTime(_group));
 
         }
-        return _totalTime;
-    }
+        return _totalTime + timeBetweenWave;
+    } //Add all waiting time between groups to get wave duration in seconds
 
     float GroupTotalTime(FGroup _group)
     {
@@ -165,12 +168,18 @@ public class Spawner : MonoBehaviour
             _totalTime += _group.SpawnRate;
         }
         return _totalTime;
-    }
+    } //Add all spawn rate time to get total spawn duration in seconds
 
     void InitiateWaveTimer()
     {
         currentWaveTime = 0;
-        currentWaveTotalTime = WaveTotalTime(currentWave); //Set new totaltime
+        currentWaveTotalTime = WaveTotalTime(currentWave); //Set new totalTime
+        uIWaveIndex = "Wave " + (currentWaveIndex + 1).ToString();
         Debug.Log("Wave total time is : " + currentWaveTotalTime);
-    }
+    } //Reset wave Timer
+
+    void SetIsWaveStarted()
+    {
+        isWaveSpawning = true;
+    } //Used with Invoke to delay boolean switch to match start
 }

@@ -1041,4 +1041,4 @@ MonoBehaviour:
   baseTower: {fileID: 1686292540513118469, guid: 9e36b5beb4782a040946f165f1371a3a, type: 3}
   upgradedTower: {fileID: 5530710326983796489, guid: 91721e0272d489c4fa78e71deaf2f857, type: 3}
   towerPrice: 100
-  upgradePrice: 250
+  upgradePrice: 200

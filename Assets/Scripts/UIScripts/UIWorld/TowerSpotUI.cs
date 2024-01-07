@@ -59,7 +59,7 @@ public class TowerSpotUI : UIWorldElement
             actualTower.DestroyTower();
             actualTower = null;
             actualTower = Instantiate(upgradedTower, transform.position, transform.rotation, gameObject.transform);
-            upgradeTowerButton.gameObject.SetActive(false);
+            canvas.gameObject.SetActive(false);
         }
     }
 

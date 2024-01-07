@@ -105,8 +105,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f130f18c7420ec449c85051a6b529f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerRange: 15
-  fireRate: 1
+  towerRange: 14
+  fireRate: 1.2
   projToSpawn: {fileID: 1256352363915415040, guid: 07ccd97f0e7982a449889a74289168f8, type: 3}
   upProjOffset: 2.2
   fwdProjOffset: 0.4
