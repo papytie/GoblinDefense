@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,16 +10,20 @@ public class PlayerStats : Singleton<PlayerStats>
     public int PlayerBaseHealth => playerBaseHealth;
     public bool GameIsOver => gameIsOver;
 
+    public event Action OnGameOver = null;
+
     [Header("Player Settings")]
+
     [Header("Health")]
     [SerializeField] int playerBaseHealth = 10;
     [SerializeField] int playerMaxHealth = 20;
+    [SerializeField] int playerCurrentHealth = 0;
+
     [Header("Money")]
     [SerializeField] int playerBaseMoney = 0;
     [SerializeField] int playerMaxMoney = 99;
-    
-    int playerCurrentHealth = 0;
-    int playerCurrentMoney = 0;
+    [SerializeField] int playerCurrentMoney = 0;
+
     bool gameIsOver = false;
 
     private void Start()
@@ -51,6 +56,7 @@ public class PlayerStats : Singleton<PlayerStats>
         {
             playerCurrentHealth = 0;
             gameIsOver = true;
+            OnGameOver?.Invoke();
         }
     } //Remove health and set bool if GameIsOver
 

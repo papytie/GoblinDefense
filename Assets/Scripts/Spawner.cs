@@ -175,7 +175,7 @@ public class Spawner : MonoBehaviour
         currentWaveTime = 0;
         currentWaveTotalTime = WaveTotalTime(currentWave); //Set new totalTime
         uIWaveIndex = "Wave " + (currentWaveIndex + 1).ToString();
-        Debug.Log("Wave total time is : " + currentWaveTotalTime);
+        //Debug.Log("Wave total time is : " + currentWaveTotalTime);
     } //Reset wave Timer
 
     void SetIsWaveStarted()

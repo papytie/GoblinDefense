@@ -37,6 +37,8 @@ public class TowerSpotUI : UIWorldElement
         newTowerButton.onClick.AddListener(BuyNewTower);
         upgradeTowerButton.onClick.AddListener(UpgradeTower);
         priceText.text = towerPrice + "$";
+
+        PlayerStats.Instance.OnGameOver += () => canvas.gameObject.SetActive(false);
     }
 
     void BuyNewTower()

@@ -1,14 +1,19 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameHUD : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] Spawner spawner;
+    [SerializeField] GameObject playerHUD;
+    [SerializeField] GameObject gameOverPopup;
+    [SerializeField] GameObject pauseMenu;
 
     [Header("PlayerUI")]
     [SerializeField] Slider playerHPBar = null;
@@ -29,8 +34,18 @@ public class GameHUD : MonoBehaviour
     [SerializeField] List<CinemachineVirtualCamera> allCameras = new();
 
     [Header("MenuUI")]
-    [SerializeField] Button menuButton = null;
+    [SerializeField] Button openMenuButton = null;
+    [SerializeField] Button menuResumeButton = null;
+    [SerializeField] Button menuRetryButton = null;
+    [SerializeField] Button menuQuitButton = null;
+    [SerializeField] Button menuBackButton = null;
 
+    [Header("Game Over Popup")]
+    [SerializeField] Button retryButton = null;
+    [SerializeField] Button titleButton = null;
+
+    float currentTime = 0;
+    float maxCarouselTime = 3;
 
     private void Start()
     {
@@ -39,17 +54,17 @@ public class GameHUD : MonoBehaviour
 
     private void Update()
     {
+        if (PlayerStats.Instance.GameIsOver)
+        {
+            CarouselTimer();
+            return;
+        }
+
         playerHPBar.value = ConvertBarValueToFloat(PlayerStats.Instance.PlayerCurrentHealth,PlayerStats.Instance.PlayerBaseHealth);
         playerMoneyText.text = PlayerStats.Instance.PlayerCurrentMoney.ToString() + "$";
         waveTimerBar.value = 1 - (spawner.CurrentWaveTime / spawner.CurrentWaveTotalTime);
         waveTimerText.text = !spawner.IsWaveSpawning ? "Be Prepared..." : spawner.UIWaveIndex;
-    }
-
-    float ConvertBarValueToFloat(int _currentInt, int _maxInt)
-    {
-        float _currentFloat = _currentInt;
-        float _maxFloat = _maxInt;
-        return _currentFloat / _maxFloat;
+        
     }
 
     void InitGameHUD()
@@ -57,8 +72,30 @@ public class GameHUD : MonoBehaviour
         previousCameraButton.onClick.AddListener(DecreaseIndex);
         nextCameraButton.onClick.AddListener(IncreaseIndex);
         topCameraButton.onClick.AddListener(TopCameraPriority);
+        openMenuButton.onClick.AddListener(ShowPauseMenu);
+
+        menuBackButton.onClick.AddListener(ReturnToTitle);
+        menuQuitButton.onClick.AddListener(QuitGame);
+        menuResumeButton.onClick.AddListener(ResumeGame);
+        menuRetryButton.onClick.AddListener(ResetLevel);
+
+        retryButton.onClick.AddListener(ResetLevel);
+        titleButton.onClick.AddListener(ReturnToTitle);
+
+        PlayerStats.Instance.OnGameOver += () =>
+        {
+            gameOverPopup.SetActive(true);
+            playerHUD.SetActive(false);
+        };
 
         ChangeCameraPriority(); //change Camera focus
+    }
+
+    float ConvertBarValueToFloat(int _currentInt, int _maxInt)
+    {
+        float _currentFloat = _currentInt;
+        float _maxFloat = _maxInt;
+        return _currentFloat / _maxFloat;
     }
 
     void IncreaseIndex()
@@ -92,6 +129,45 @@ public class GameHUD : MonoBehaviour
             _cam.Priority = 1;
         }
         topCamera.Priority = 10;
+    }
+
+    void CarouselTimer()
+    {
+        currentTime += Time.deltaTime;
+        if (currentTime >= maxCarouselTime)
+        {
+            currentTime = 0;
+            selectedCameraIndex++;
+            ChangeCameraPriority();
+        }
+    }
+
+    void ResetLevel()
+    {
+        SceneManager.LoadScene("GameLevel");
+    }
+
+    void ReturnToTitle()
+    {
+        SceneManager.LoadScene("OpenMenuThriller");
+    }
+
+    void ShowPauseMenu()
+    {
+        Time.timeScale = 0;
+        pauseMenu.gameObject.SetActive(true);
+    }
+    void ResumeGame()
+    {
+        Time.timeScale = 1;
+        pauseMenu.gameObject.SetActive(false);
+    }
+
+    void QuitGame()
+    {
+        if (!menuQuitButton) return;
+        //EditorApplication.isPlaying = false;
+        Application.Quit();
     }
 
 }

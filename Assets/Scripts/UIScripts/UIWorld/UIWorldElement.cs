@@ -10,7 +10,6 @@ public abstract class UIWorldElement : MonoBehaviour
     protected virtual void Start()
     {
         mainCamera = Camera.main;
-
     }
 
     protected virtual void Update()
@@ -18,4 +17,5 @@ public abstract class UIWorldElement : MonoBehaviour
         canvas.transform.LookAt(mainCamera.transform.position); //Always Look at mainCamera
 
     }
+    
 }

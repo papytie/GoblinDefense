@@ -35,6 +35,12 @@ public class TowerAnimation : MonoBehaviour
         animator.SetTrigger("detectionTrigger"); 
     }
 
+    public void ToggleDeathTriggerParam()
+    {
+        if (!animator) return;
+        animator.SetTrigger("deathTrigger"); 
+    }
+
     public void UpdateIsAttackingBoolParam(bool _value)
     {
         if (!animator) return;

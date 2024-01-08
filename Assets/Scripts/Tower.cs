@@ -80,6 +80,14 @@ public class Tower : MonoBehaviour
             EnableDetection();
         };
 
+        PlayerStats.Instance.OnGameOver += () =>
+        {
+            entitiesInRange.Clear();
+            mainTarget = null;
+            IsAttacking = false;
+            towerAnimation.ToggleDeathTriggerParam();
+        };
+
     }// Add Functions to essentials events
 
     void EntityDetection()
@@ -131,6 +139,7 @@ public class Tower : MonoBehaviour
 
     void CheckTarget()
     {
+        if (mainTarget == null) return;
         if (Vector3.Distance(transform.position, mainTarget.transform.position) > towerRange || mainTarget.IsDead)
         {
             CancelInvoke(nameof(CheckTarget));

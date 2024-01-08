@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField] MenuController menuController = null; // Controller REF
+    //[SerializeField] MenuController menuController = null; // Controller REF
 
     //-----------BUTTONS------------------------
     [SerializeField] Button startButton = null;
@@ -41,6 +41,7 @@ public class MainMenu : MonoBehaviour
     void QuitGame()
     {
         if(!quitButton) return;
-        EditorApplication.isPlaying = false;
+        //EditorApplication.isPlaying = false;
+        Application.Quit();
     }
 }

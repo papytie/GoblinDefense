@@ -9,8 +9,8 @@ public class PathManager : MonoBehaviour
 
     [Header("Path Settings")]
     [SerializeField] List<GameObject> path = new();
-    [SerializeField] float debugRadius = 1;
-    [SerializeField] bool showDebugGizmos = true;
+    //[SerializeField] float debugRadius = 1;
+    //[SerializeField] bool showDebugGizmos = true;
 
     void Start()
     {
@@ -33,7 +33,7 @@ public class PathManager : MonoBehaviour
     } //get all gameObjects that is a child of this gameObject by Transform
 
     // -------- DEBUG ---------
-    private void OnDrawGizmos()
+    /*private void OnDrawGizmos()
     {
         if (!showDebugGizmos) return;
         if (!Application.IsPlaying(this))
@@ -67,5 +67,5 @@ public class PathManager : MonoBehaviour
                 Gizmos.color = Color.white;
             }
         }
-    }
+    }*/
 }

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class OptionsMenu : MonoBehaviour
 {
-    [SerializeField] MenuController menuController = null; // Controller REF
+    //[SerializeField] MenuController menuController = null; // Controller REF
 
     //----------BUTTONS-----------------------------------
     [SerializeField] Button gameplayButton = null;
