@@ -144,11 +144,13 @@ public class GameHUD : MonoBehaviour
 
     void ResetLevel()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene("GameLevel");
     }
 
     void ReturnToTitle()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene("OpenMenuThriller");
     }
 
@@ -157,6 +159,7 @@ public class GameHUD : MonoBehaviour
         Time.timeScale = 0;
         pauseMenu.gameObject.SetActive(true);
     }
+
     void ResumeGame()
     {
         Time.timeScale = 1;
