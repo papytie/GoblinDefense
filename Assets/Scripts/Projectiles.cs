@@ -7,7 +7,6 @@ public class Projectiles : MonoBehaviour
     [Header("Projectile Settings")]
     [SerializeField] float moveSpeed = 10;
     [SerializeField] float impactDist = 2;
-    [SerializeField] int damageValue = 1;
 
     Entity target = null;
     Tower towerRef = null;
@@ -40,7 +39,7 @@ public class Projectiles : MonoBehaviour
         {
             Destroy(gameObject);
             if (!target.IsDead)
-                target.TakeDamage(damageValue);
+                target.TakeDamage(towerRef.BaseDamage);
         }
 
     } // Destroy this if target is dead

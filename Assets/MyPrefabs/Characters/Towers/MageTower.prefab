@@ -84,8 +84,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f130f18c7420ec449c85051a6b529f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerRange: 15
-  fireRate: 1.2
+  towerName: Mage
+  towerRange: 12
+  rangeIncrease: 0
+  fireRate: 1
+  fireRateIncrease: 0
+  baseDamage: 3
+  damageIncrease: 1
+  basePrice: 200
+  upgradePrice: 100
   projToSpawn: {fileID: -3515791040645049566, guid: cc95f8ea16e61f64db1f37c46b5a8d9b, type: 3}
   upProjOffset: 2
   fwdProjOffset: 1

@@ -17,12 +17,23 @@ public class Tower : MonoBehaviour
         }
     }
     public Entity MainTarget => mainTarget;
+    public int BasePrice => basePrice;
+    public int BaseDamage => baseDamage;
+    public int UpgradePrice => upgradePrice;
+    public string TowerName => towerName;
 
     [Header("Tower Settings")]
 
     [Header("Stats")]
+    [SerializeField] string towerName = "tower"; // Entity detection range
     [SerializeField] float towerRange = 20; // Entity detection range
+    [SerializeField] float rangeIncrease = 2; 
     [SerializeField] float fireRate = 1; // time between each projectile spawn
+    [SerializeField] float fireRateIncrease = 1;
+    [SerializeField] int baseDamage = 1;
+    [SerializeField] int damageIncrease = 1;
+    [SerializeField] int basePrice = 1;
+    [SerializeField] int upgradePrice = 1;
     
     [Header("Projectile")]
     [SerializeField] Projectiles projToSpawn = null;
@@ -128,12 +139,8 @@ public class Tower : MonoBehaviour
     {
         if (mainTarget == null) return;
 
-        Projectiles _proj = Instantiate(projToSpawn, 
-                                        transform.position + 
-                                        (transform.up * upProjOffset) + 
-                                        (transform.forward * fwdProjOffset) + 
-                                        (transform.right * rgtProjOffset), 
-                                        transform.rotation);
+        Projectiles _proj = Instantiate(projToSpawn, transform.position + 
+            (transform.up * upProjOffset) + (transform.forward * fwdProjOffset) + (transform.right * rgtProjOffset), transform.rotation);
         _proj.SetTowerTargetRef(this);
     }// Called in Attack animation clip used
 
@@ -158,6 +165,14 @@ public class Tower : MonoBehaviour
         transform.rotation = new Quaternion(0, transform.rotation.y, 0, transform.rotation.w); //Constrain X and Z rotations to 0
         
     }// LookAt Target or cancel own Invoke
+
+    public void UpgradeTower(int _level)
+    {
+        baseDamage += damageIncrease * _level;
+        fireRate += fireRateIncrease * _level;
+        towerAnimation.UpdateFireRateFloatValue(fireRate);
+        towerRange += rangeIncrease * _level;
+    }
 
     void EnableDetection()
     {

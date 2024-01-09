@@ -14,6 +14,7 @@ public class GameHUD : MonoBehaviour
     [SerializeField] GameObject playerHUD;
     [SerializeField] GameObject gameOverPopup;
     [SerializeField] GameObject pauseMenu;
+    [SerializeField] GameObject victoryPopup;
 
     [Header("PlayerUI")]
     [SerializeField] Slider playerHPBar = null;
@@ -44,8 +45,11 @@ public class GameHUD : MonoBehaviour
     [SerializeField] Button retryButton = null;
     [SerializeField] Button titleButton = null;
 
+    [Header("Victory Popup")]
+    [SerializeField] Button victoryTitleButton = null;
+    [SerializeField] float maxCarouselTime = 5;
+
     float currentTime = 0;
-    float maxCarouselTime = 3;
 
     private void Start()
     {
@@ -54,7 +58,7 @@ public class GameHUD : MonoBehaviour
 
     private void Update()
     {
-        if (PlayerStats.Instance.GameIsOver)
+        if (PlayerStats.Instance.GameIsOver || spawner.GameIsWin)
         {
             CarouselTimer();
             return;
@@ -78,6 +82,7 @@ public class GameHUD : MonoBehaviour
         menuQuitButton.onClick.AddListener(QuitGame);
         menuResumeButton.onClick.AddListener(ResumeGame);
         menuRetryButton.onClick.AddListener(ResetLevel);
+        victoryTitleButton.onClick.AddListener(ReturnToTitle);
 
         retryButton.onClick.AddListener(ResetLevel);
         titleButton.onClick.AddListener(ReturnToTitle);
@@ -86,6 +91,11 @@ public class GameHUD : MonoBehaviour
         {
             gameOverPopup.SetActive(true);
             playerHUD.SetActive(false);
+        };
+
+        spawner.OnLevelCleared += () =>
+        {
+            victoryPopup.SetActive(true);
         };
 
         ChangeCameraPriority(); //change Camera focus

@@ -35,6 +35,9 @@ public class Spawner : MonoBehaviour
     public float CurrentWaveTotalTime => currentWaveTotalTime;
     public string UIWaveIndex => uIWaveIndex;
     public bool IsWaveSpawning => isWaveSpawning;
+    public bool GameIsWin => gameIsWin;
+
+    public event Action OnLevelCleared = null;
 
     [Header("References")]
     [SerializeField] PathManager pathManager = null;
@@ -54,9 +57,8 @@ public class Spawner : MonoBehaviour
     float currentWaveTime = 0;
     float currentWaveTotalTime = 0;
     bool isWaveSpawning = false;
+    bool gameIsWin = false;
     string uIWaveIndex = "";
-
-    //bool allWavesAreSpawned = false; //TODO: switch for end game
 
     event Action OnNextWave = null;
     event Action OnNextGroup = null;
@@ -66,13 +68,11 @@ public class Spawner : MonoBehaviour
     {
         InitSpawner();
         Invoke(nameof(WaveManagement), startTime);
-        //InitiateWaveTimer();
     }
 
     private void Update()
     {
         currentWaveTime = UpdateWaveTimerValue();
-        //Debug.Log("current Timer value is : " +  currentWaveTime);
     }
 
     void InitSpawner()
@@ -81,13 +81,9 @@ public class Spawner : MonoBehaviour
         currentWaveTotalTime = startTime;
         Invoke(nameof(SetIsWaveStarted), startTime);
 
-        OnNextWave += () =>
-        {
-            Invoke(nameof(WaveManagement), timeBetweenWave);
-        };
-
         OnNextGroup += () => Invoke(nameof(GroupManagement), currentWave.TimeBetweenGroups);
         OnEntitySpawn += () => Invoke(nameof(EntityManagement), currentGroup.SpawnRate);
+        OnNextWave += () => Invoke(nameof(WaveManagement), timeBetweenWave);
 
     } //Initialise ref & events
 
@@ -96,6 +92,7 @@ public class Spawner : MonoBehaviour
         if (currentWaveIndex > wavesToSpawn.Count -1)
         {
             isWaveSpawning = false;
+            InvokeRepeating(nameof(CheckVictory), 0, .1f);
             return;
         }
 
@@ -182,4 +179,21 @@ public class Spawner : MonoBehaviour
     {
         isWaveSpawning = true;
     } //Used with Invoke to delay boolean switch to match start
+
+    void CheckVictory()
+    {
+        if(PlayerStats.Instance.GameIsOver)
+        {
+            CancelInvoke(nameof(CheckVictory));
+            return;
+        }
+
+        else if(EnemyManager.Instance.AllEntitiesInScene.Count == 0)
+        {
+            CancelInvoke(nameof(CheckVictory));
+            gameIsWin = true;
+            OnLevelCleared?.Invoke();
+            return;
+        }
+    }
 }

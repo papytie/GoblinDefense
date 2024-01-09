@@ -12021,7 +12021,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &733458335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19641,7 +19641,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93b1d469e0362284089f98421b63db7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuController: {fileID: 733458335}
   startButton: {fileID: 776483104}
   optionsButton: {fileID: 1410362780}
   quitButton: {fileID: 430070167}
@@ -20446,7 +20445,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817c799c62858394798f49fa3c381b26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuController: {fileID: 733458335}
   gameplayButton: {fileID: 1662155062}
   displayButton: {fileID: 1349631971}
   audioButton: {fileID: 2075160963}

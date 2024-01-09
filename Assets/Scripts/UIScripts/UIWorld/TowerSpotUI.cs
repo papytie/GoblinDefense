@@ -8,18 +8,26 @@ public class TowerSpotUI : UIWorldElement
 {
     [Header("Tower Spot Settings")]
 
-    [Header("References")]
-    [SerializeField] Button newTowerButton = null;
+    [Header("UI References")]
+    [SerializeField] GameObject buyPanel = null;
+    [SerializeField] GameObject upgradePanel = null;
+    [SerializeField] Button archerTowerButton = null;
+    [SerializeField] Button mageTowerButton = null;
     [SerializeField] Button upgradeTowerButton = null;
-    [SerializeField] TextMeshProUGUI priceText = null;
+    [SerializeField] TextMeshProUGUI archerPriceText = null;
+    [SerializeField] TextMeshProUGUI magePriceText = null;
+    [SerializeField] TextMeshProUGUI upgradePriceText = null;
+    [SerializeField] TextMeshProUGUI towerNameText = null;
 
     [Header("Parameters")]
-    [SerializeField] Tower baseTower = null;
-    [SerializeField] Tower upgradedTower = null;
-    [SerializeField] int towerPrice = 100;
-    [SerializeField] int upgradePrice = 250;
+    [SerializeField] Tower archerTower = null;
+    [SerializeField] Tower mageTower = null;
+    [SerializeField] int archerBasePrice = 100;
+    [SerializeField] int mageBasePrice = 200;
+    [SerializeField] int towerMaxLevel = 3;
 
     Tower actualTower = null;
+    int actualTowerLevel = 1;
 
     protected override void Start()
     {
@@ -34,34 +42,51 @@ public class TowerSpotUI : UIWorldElement
 
     void InitTowerSpot()
     {
-        newTowerButton.onClick.AddListener(BuyNewTower);
+        archerTowerButton.onClick.AddListener(BuyArcherTower);
+        mageTowerButton.onClick.AddListener(BuyMageTower);
         upgradeTowerButton.onClick.AddListener(UpgradeTower);
-        priceText.text = towerPrice + "$";
+        archerPriceText.text = archerBasePrice + "$";
+        magePriceText.text = mageBasePrice + "$";
+        upgradePriceText.text = mageBasePrice + "$";
 
         PlayerStats.Instance.OnGameOver += () => canvas.gameObject.SetActive(false);
     }
 
-    void BuyNewTower()
+    void BuyArcherTower()
     {
-        if(PlayerStats.Instance.RemoveMoney(towerPrice))
+        NewTower(archerTower);
+    }
+
+    void BuyMageTower()
+    {
+        NewTower(mageTower);
+    }
+
+    void NewTower(Tower _type)
+    {
+        if(PlayerStats.Instance.RemoveMoney(_type.BasePrice))
         {
-            actualTower = Instantiate(baseTower, transform.position, transform.rotation, gameObject.transform);
-            newTowerButton.gameObject.SetActive(false);
-            upgradeTowerButton.gameObject.SetActive(true);
-            priceText.text = upgradePrice + "$";
-
+            actualTower = Instantiate(_type, transform.position, transform.rotation, gameObject.transform);
+            buyPanel.gameObject.SetActive(false);
+            upgradePanel.SetActive(true);
+            upgradePriceText.text = actualTower.UpgradePrice + "$";
+            towerNameText.text = actualTower.TowerName + " lvl" + actualTowerLevel;
         }
-
     }
 
     void UpgradeTower()
     {
-        if (PlayerStats.Instance.RemoveMoney(upgradePrice))
+        if (PlayerStats.Instance.RemoveMoney(actualTower.UpgradePrice * actualTowerLevel))
         {
-            actualTower.DestroyTower();
-            actualTower = null;
-            actualTower = Instantiate(upgradedTower, transform.position, transform.rotation, gameObject.transform);
-            canvas.gameObject.SetActive(false);
+            actualTower.UpgradeTower(actualTowerLevel);
+            actualTowerLevel++;
+            if (actualTowerLevel == towerMaxLevel)
+            {
+                upgradePriceText.gameObject.SetActive(false);
+                upgradeTowerButton.gameObject.SetActive(false);
+            }
+            towerNameText.text = actualTower.TowerName + " lvl" + actualTowerLevel;
+            upgradePriceText.text = actualTower.UpgradePrice * actualTowerLevel + "$";
         }
     }
 
